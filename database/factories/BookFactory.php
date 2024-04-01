@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
@@ -16,8 +18,13 @@ class BookFactory extends Factory
      */
     public function definition()
     {
+        $title = fake()->name();
         return [
-            //
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'author' => fake()->name(),
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'qty' => 5,
         ];
     }
 }
