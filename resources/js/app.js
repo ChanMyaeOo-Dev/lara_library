@@ -1,5 +1,9 @@
 import "./bootstrap";
 import Swal from "sweetalert2";
+import jQuery from "jquery";
+import DataTable from "datatables.net-bs5";
+
+new DataTable("#data_table");
 
 // or via CommonJS
 // const Swal = require("sweetalert2");

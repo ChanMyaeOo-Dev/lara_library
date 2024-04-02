@@ -14,7 +14,7 @@
     <div class="card rounded-sm">
         <div class="card-body">
 
-            <table id="myTable" class="table table-striped table-bordered" style="width:100%">
+            <table id="data_table" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>Title</th>
