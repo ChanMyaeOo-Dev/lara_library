@@ -12,4 +12,8 @@ class Category extends Model
         'slug',
     ];
     use HasFactory;
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

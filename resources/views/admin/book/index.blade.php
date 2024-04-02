@@ -18,6 +18,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Stock</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -25,6 +28,10 @@
                     @foreach ($books as $book)
                         <tr>
                             <td>{{ $book->title }}</td>
+                            <td>{{ $book->author }}</td>
+                            <td class={{ $book->category ? '' : 'text-black-50' }}>
+                                {{ $book->category ? $book->category->title : 'uncategorize' }}</td>
+                            <td>{{ $book->qty }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-outline-dark me-1">
