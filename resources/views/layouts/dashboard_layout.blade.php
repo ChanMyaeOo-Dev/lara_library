@@ -107,8 +107,9 @@
                             <p class="mb-0 text-uppercase">Categories</p>
                         </div>
                     </a>
-                    <a href="{{ route('home') }}" class="text-decoration-none">
-                        <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                    <a href="{{ route('books.index') }}" class="text-decoration-none">
+                        <div
+                            class="sidebar_item {{ request()->is('books') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-book me-2"></i>
                             <p class="mb-0 text-uppercase">Books</p>
                         </div>
