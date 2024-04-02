@@ -1,8 +1,23 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
+
+// Bootstrap
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+td {
+    vertical-align: middle !important;
+    padding: 14px !important;
+}
+.sidebar_item {
+    color: #212121;
+}
+.sidebar_item_active {
+    background: $primary;
+    color: white;
+}
