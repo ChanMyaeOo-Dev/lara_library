@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -35,6 +36,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'student',
             'profile_picture' => "default_user.svg"
         ]);
+
+        Setting::factory()->create([
+            'borrowing_duration' => '7',
+            'fine_rate' => '1000',
+        ]);
+
 
         $categories = ["Information Technology", "Varity", "Burmese", "Language Support"];
         foreach ($categories as $category) {
