@@ -36,6 +36,10 @@
                     <label for="" class="mb-1">Book Title</label>
                     <input type="text" name="title" class="form-control" placeholder="Enter Book Title...">
                 </div>
+                <div class="mb-3">
+                    <label for="" class="mb-1">Book Description</label>
+                    <textarea class=" form-control" rows="6" name="description"></textarea>
+                </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Author Name</label>

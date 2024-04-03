@@ -42,6 +42,9 @@
                             <td>{{ $book->qty }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
+                                    <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-outline-dark me-1">
+                                        <i class="bi bi-info-square"></i>
+                                    </a>
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>

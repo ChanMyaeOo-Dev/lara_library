@@ -9,7 +9,7 @@ use App\Models\Category;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'slug', 'author', 'category_id', 'qty'];
+    protected $fillable = ['title', 'slug', 'description', 'excerpt', 'author', 'category_id', 'qty'];
     public function category()
     {
         return $this->belongsTo(Category::class);

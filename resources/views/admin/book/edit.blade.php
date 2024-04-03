@@ -23,6 +23,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="" class="mb-1">Book Description</label>
+                    <textarea class=" form-control" rows="6" name="description">{{ $book->description }}</textarea>
+                </div>
+
+                <div class="mb-3">
                     <label for="" class="mb-1">Author Name</label>
                     <input type="text" name="author" class="form-control" value="{{ $book->author }}"
                         placeholder="Enter Author Name...">

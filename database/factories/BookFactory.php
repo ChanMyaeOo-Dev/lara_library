@@ -19,9 +19,12 @@ class BookFactory extends Factory
     public function definition()
     {
         $title = fake()->name();
+        $description = fake()->realTextBetween(200, 300);
         return [
             'title' => $title,
             'slug' => Str::slug($title),
+            'description' => $description,
+            'excerpt' => Str::excerpt($description),
             'author' => fake()->name(),
             'category_id' => Category::inRandomOrder()->first()->id,
             'qty' => 5,

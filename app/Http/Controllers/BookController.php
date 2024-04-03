@@ -39,6 +39,10 @@ class BookController extends Controller
 
         $book->title = $request->title;
         $book->slug = Str::slug($request->title);
+
+        $book->description = $request->description;
+        $book->excerpt = Str::excerpt($request->description);
+
         $book->author = $request->author;
         $book->category_id = $request->category;
         $book->qty = $request->qty;
@@ -48,7 +52,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        //
+        return view("admin.book.show", compact("book"));
     }
 
     public function edit(Book $book)
@@ -61,6 +65,8 @@ class BookController extends Controller
     {
         $book->title = $request->title;
         $book->slug = Str::slug($request->title);
+        $book->description = $request->description;
+        $book->excerpt = Str::excerpt($request->description);
         $book->author = $request->author;
         $book->category_id = $request->category;
         $book->qty = $request->qty;
