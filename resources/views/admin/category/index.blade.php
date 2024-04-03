@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="card rounded-sm">
+    <div class="card bg-white rounded-sm">
         <div class="card-body">
 
             <table class="table table-hover">

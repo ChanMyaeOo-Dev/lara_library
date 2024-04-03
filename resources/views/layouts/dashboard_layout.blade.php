@@ -16,7 +16,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="top_nav_bar" class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
                     <i class="bi bi-lamp-fill me-1 fs-5"></i>
@@ -73,9 +73,9 @@
             </div>
         </nav>
 
-        <div class=" container-fluid">
+        <div class="container-fluid">
             <div class="row min-vh-100 w-100">
-                <div class="col-2 bg-light border-end p-0">
+                <div id="side_bar" class="col-2 bg-white border-end px-0">
                     <a href="{{ route('home') }}" class="text-decoration-none">
                         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 mt-3 rounded">
                             <i class="bi bi-house me-2"></i>
@@ -100,23 +100,42 @@
 
                     <p class="mb-3 text-secondary fs-6 mx-4">Library Management</p>
 
+                    {{-- Category --}}
                     <a href="{{ route('category.index') }}" class="text-decoration-none">
                         <div
-                            class="sidebar_item {{ request()->is('category') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            class="sidebar_item {{ request()->routeIs('category*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-blockquote-right me-2"></i>
                             <p class="mb-0 text-uppercase">Categories</p>
                         </div>
                     </a>
+                    {{-- Book --}}
                     <a href="{{ route('books.index') }}" class="text-decoration-none">
                         <div
-                            class="sidebar_item {{ request()->is('books') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            class="sidebar_item {{ request()->routeIs('books*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-book me-2"></i>
                             <p class="mb-0 text-uppercase">Books</p>
                         </div>
                     </a>
+                    {{-- User --}}
+                    <a href="{{ route('users.index') }}" class="text-decoration-none">
+                        <div
+                            class="sidebar_item {{ request()->routeIs('users*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            <i class="bi bi-people me-2"></i>
+                            <p class="mb-0 text-uppercase">Users</p>
+                        </div>
+                    </a>
+                    {{-- Transition --}}
+                    <a href="{{ route('books.index') }}" class="text-decoration-none">
+                        <div
+                            class="sidebar_item {{ request()->routeIs('transitions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            <i class="bi bi-router me-2"></i>
+                            <p class="mb-0 text-uppercase">Transitions</p>
+                        </div>
+                    </a>
+
 
                 </div>
-                <div class="col-10 py-3">
+                <div id="main_content" class="col-10 pb-4">
                     @yield('content')
                 </div>
             </div>

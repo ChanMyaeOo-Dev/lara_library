@@ -10,14 +10,44 @@
 // Bootstrap
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-td {
+td,
+th {
     vertical-align: middle !important;
     padding: 14px !important;
+    background: $white !important;
+}
+input,
+.lg_btn {
+    padding: 10px 20px 10px 20px !important;
 }
 .sidebar_item {
     color: #212121;
 }
 .sidebar_item_active {
-    background: $primary;
+    background: $blue-100;
+    color: black;
+}
+
+.custom_photo_div {
+    position: relative;
+}
+
+.custom_photo_div img {
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: cover !important;
+}
+
+.custom_photo_div .photo_choose_icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #343434;
     color: white;
 }
