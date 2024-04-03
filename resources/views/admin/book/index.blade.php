@@ -29,7 +29,13 @@
                     @foreach ($books as $book)
                         <tr>
                             <td>{{ $book->created_at->format('M/d/Y') }}</td>
-                            <td>{{ $book->title }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $book->book_image) }}"
+                                        class="me-2 rounded border border-1" style="width: 45px;height:45px;">
+                                    <span>{{ $book->title }}</span>
+                                </div>
+                            </td>
                             <td>{{ $book->author }}</td>
                             <td class={{ $book->category ? '' : 'text-black-50' }}>
                                 {{ $book->category ? $book->category->title : 'uncategorize' }}</td>

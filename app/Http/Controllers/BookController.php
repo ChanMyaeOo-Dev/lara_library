@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
@@ -13,7 +14,7 @@ class BookController extends Controller
 
     public function index()
     {
-        $books = Book::all();
+        $books = Book::latest()->get();
         return view("admin.book.index", compact("books"));
     }
 
@@ -27,6 +28,15 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $book = new Book();
+
+        if ($request->hasFile('book_image')) {
+            $newName = uniqid() . '_book_image.' . $request->file("book_image")->getClientOriginalExtension();
+            $request->file("book_image")->storeAs("public", $newName);
+            $book->book_image = $newName;
+        } else {
+            $book->book_image = "default_book_image.jpg";
+        }
+
         $book->title = $request->title;
         $book->slug = Str::slug($request->title);
         $book->author = $request->author;
@@ -60,6 +70,9 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
+        if ($book->book_image != "default_book_image.jpg") {
+            Storage::delete("public/" . $book->book_image);
+        }
         $book->delete();
         return redirect()->route('books.index')->with("message", "Deleted successfully.");
     }

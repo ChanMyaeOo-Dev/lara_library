@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -94,6 +95,9 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->profile_picture != "default_user.svg") {
+            Storage::delete("public/" . $user->profile_picture);
+        }
         $user->delete();
         return redirect()->route('users.index')->with("message", "Successfully deleted.");
     }

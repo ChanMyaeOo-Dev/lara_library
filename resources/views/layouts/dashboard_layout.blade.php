@@ -19,8 +19,7 @@
         <nav id="top_nav_bar" class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
-                    <i class="bi bi-lamp-fill me-1 fs-5"></i>
-                    LMS Library
+                    <img src="{{ asset('storage/logo_landscape.png') }}" class="" style="width: 200px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -50,21 +49,26 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                <div class=" d-flex align-items-center me-3">
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                        style="width: 40px;height:40px;"
+                                        class="me-2 border border-2 rounded-circle shadow-sm">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>{{ Auth::user()->name }}</span>
                                     </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
                         @endguest
@@ -132,6 +136,10 @@
                             <p class="mb-0 text-uppercase">Transitions</p>
                         </div>
                     </a>
+
+                    <hr class="mx-4">
+
+                    <p class="mb-3 text-secondary fs-6 mx-4">Library Setting</p>
 
                     {{-- Setting --}}
                     <a href="{{ route('settings.index') }}" class="text-decoration-none">

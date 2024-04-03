@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("author");
             $table->foreignId("category_id");
             $table->string("qty");
+            $table->string("book_image");
             $table->timestamps();
         });
     }

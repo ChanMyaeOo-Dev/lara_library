@@ -25,6 +25,7 @@ class BookFactory extends Factory
             'author' => fake()->name(),
             'category_id' => Category::inRandomOrder()->first()->id,
             'qty' => 5,
+            'book_image' => "default_book_image.jpg",
         ];
     }
 }

@@ -13,8 +13,25 @@
     <div class="card rounded-sm bg-white p-2">
         <div class="card-body">
             <p class="fs-4 mb-3 fw-bold">Book Details</p>
-            <form action="{{ route('books.store') }}" method="POST">
+            <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="mb-3 mt-2">
+
+                    <div class="custom_photo_div d-inline-block">
+
+                        <img src="{{ asset('storage/default_book_image.jpg') }}"
+                            class="w-100 shadow-sm rounded-3 shadow output">
+
+                        <div class="custom_photo_add_icon">
+                            <label for="image"
+                                class="photo_choose_icon btn btn-outline-dark image rounded shadow-sm w-100 text-center">
+                                <i class="bi bi-camera fs-5"></i>
+                            </label>
+                            <input type="file" id="image" name="book_image" accept="image/*"
+                                onchange="loadFile(event)" hidden>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-3">
                     <label for="" class="mb-1">Book Title</label>
                     <input type="text" name="title" class="form-control" placeholder="Enter Book Title...">
@@ -43,4 +60,14 @@
             </form>
         </div>
     </div>
+    <script>
+        let loadFile = function(event) {
+            let output = document.querySelector(".output");
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+                let error_msg = document.querySelector(".alert-danger").remove();
+            }
+        };
+    </script>
 @endsection
