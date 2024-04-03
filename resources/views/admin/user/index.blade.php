@@ -18,9 +18,10 @@
                 <thead>
                     <tr>
                         <th>Date <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Title <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Author <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Stock <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Name <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Email <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Phone <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Role <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Action <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                     </tr>
                 </thead>
@@ -28,8 +29,13 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->created_at->format('M/d/Y') }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td class="d-flex align-items-center">
+                                <img src="{{ asset('storage/' . $user->profile_picture) }}"
+                                    class="object-fit-cover me-2 rounded-circle" style="width:40px;height:40px;">
+                                <span class="mb-0 pb-0">{{ $user->name }}</span>
+                            </td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
                             <td class="text-uppercase">{{ $user->role }}</td>
                             <td>
                                 <div class="d-flex align-items-center">

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-4 d-flex align-items-center">
-        <a href="{{ route('users.index') }}" class="btn btn-outline-dark me-2">
+        <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-dark me-2">
             <i class="bi bi-arrow-left"></i>
         </a>
         <h4 class="text-uppercase mb-0">
@@ -35,23 +35,42 @@
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter User Name...">
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                        value="{{ old('name') }}" placeholder="Enter User Name...">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter Member Email...">
+                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email') }}" placeholder="Enter Member Email...">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Phone</label>
-                    <input type="text" name="phone" class="form-control" placeholder="Enter Member Phone...">
+                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                        value="{{ old('phone') }}" placeholder="Enter Member Phone...">
+
+                    @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Member Role</label>
                     <select class="form-select" aria-label="Default select example" name="role">
-                        <option value="student">Student</option>
+                        <option value="student" selected>Student</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
@@ -60,14 +79,14 @@
             </form>
         </div>
     </div>
+    <script>
+        let loadFile = function(event) {
+            let output = document.querySelector(".output");
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+                let error_msg = document.querySelector(".alert-danger").remove();
+            }
+        };
+    </script>
 @endsection
-<script>
-    let loadFile = function(event) {
-        let output = document.querySelector(".output");
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-            URL.revokeObjectURL(output.src) // free memory
-            let error_msg = document.querySelector(".alert-danger").remove();
-        }
-    };
-</script>
