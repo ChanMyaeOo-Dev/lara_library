@@ -39,7 +39,9 @@
                             <td>{{ $book->author }}</td>
                             <td class={{ $book->category ? '' : 'text-black-50' }}>
                                 {{ $book->category ? $book->category->title : 'uncategorize' }}</td>
-                            <td>{{ $book->qty }}</td>
+                            <td class="{{ $book->qty <= 0 ? 'text-danger' : '' }}">
+                                {{ $book->qty <= 0 ? 'out of stock' : $book->qty }}
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <form action="{{ route('carts.store') }}" method="POST">

@@ -100,7 +100,7 @@
                     <a href="{{ route('home') }}" class="text-decoration-none">
                         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-calendar3-week me-2"></i>
-                            <p class="mb-0 text-uppercase">Transistion</p>
+                            <p class="mb-0 text-uppercase">GG</p>
                         </div>
                     </a>
 
@@ -140,9 +140,9 @@
                         </div>
                     </a>
                     {{-- Transition --}}
-                    <a href="{{ route('books.index') }}" class="text-decoration-none">
+                    <a href="{{ route('transactions.index') }}" class="text-decoration-none">
                         <div
-                            class="sidebar_item {{ request()->routeIs('transistions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            class="sidebar_item {{ request()->routeIs('transactions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-router me-2"></i>
                             <p class="mb-0 text-uppercase">Transitions</p>
                         </div>

@@ -22,7 +22,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="user_id_form" action="{{ route('transistions.create') }}" method="GET" target="_blank">
+                    <form id="user_id_form" action="{{ route('transactions.create') }}" method="GET" target="_blank">
                         <div class="mb-3">
                             <label for="" class="mb-1">User Id</label>
                             <input form="user_id_form" type="text" name="user_id" class="form-control"

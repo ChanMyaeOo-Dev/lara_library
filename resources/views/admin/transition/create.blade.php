@@ -90,7 +90,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('transistions.store') }}" method="POST">
+                    <form action="{{ route('transactions.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <input type="hidden" name="duration" value="{{ $setting->borrowing_duration }}">

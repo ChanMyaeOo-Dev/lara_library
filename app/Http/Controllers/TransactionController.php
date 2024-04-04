@@ -16,14 +16,10 @@ use function PHPUnit\Framework\isEmpty;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $transactions = Transaction::latest()->get();
+        return view('admin.transition.index', compact('transactions'));
     }
     public function create(Request $request)
     {
@@ -54,6 +50,9 @@ class TransactionController extends Controller
             $transition->is_returned = $is_returned;
             $transition->returned_at = $returned_at;
             $transition->save();
+            $book = Book::find($cart->book_id);
+            $book->qty = ($book->qty - 1);
+            $book->update();
         }
         Cart::truncate();
         return redirect()->route('books.index')->with("message", "Successfully added.");
