@@ -9,13 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $carts = Cart::all();
+        return view('admin.cart.index', compact("carts"));
     }
 
     /**
@@ -69,15 +66,9 @@ class CartController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return redirect()->back()->with("message", "Successfully Removed.");
     }
 }

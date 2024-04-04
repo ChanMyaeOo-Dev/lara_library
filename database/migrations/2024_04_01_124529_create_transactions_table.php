@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId("book_id");
             $table->foreignId("user_id");
             $table->string("duration");
-            $table->date("due_date");
+            $table->string("due_date");
             $table->boolean("is_returned");
             $table->string("returned_at")->nullable();
             $table->timestamps();

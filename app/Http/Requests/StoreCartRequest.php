@@ -24,7 +24,13 @@ class StoreCartRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'book_id' => ['required', 'unique:carts'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'book_id.unique' => 'This book is already in the cart.'
         ];
     }
 }

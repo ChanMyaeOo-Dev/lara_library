@@ -10,8 +10,7 @@ class SettingController extends Controller
 {
     public function index()
     {
-        $setting = Setting::first();
-        return (view('admin.setting.index', compact('setting')));
+        return view('admin.setting.index');
     }
     public function create()
     {

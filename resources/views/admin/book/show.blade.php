@@ -9,34 +9,6 @@
             {{ $book->title }}
         </h4>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="user_id_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="user_id_modelLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="user_id_modelLabel">Enter User Id</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="user_id_form" action="{{ route('transistions.create') }}" method="GET" target="_blank">
-                        <input form="user_id_form" type="hidden" name="book" value="{{ $book->id }}">
-                        <div class="mb-3">
-                            <label for="" class="mb-1">User Id</label>
-                            <input form="user_id_form" type="text" name="user_id" class="form-control"
-                                placeholder="Enter User Id...">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button form="user_id_form" type="submit" data-bs-dismiss="modal"
-                        class="btn btn-primary">Continue</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="d-flex gap-3">
         <div class="card w-75 rounded-sm bg-white p-2">
             <div class="card-body">

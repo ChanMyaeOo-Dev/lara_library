@@ -49,14 +49,15 @@
                             @endif
                         @else
                             <li class="nav-item me-4 border-end pe-4">
-                                <button type="button" class="btn btn-light position-relative">
+                                <a href="{{ route('carts.index') }}" type="button"
+                                    class="btn btn-light position-relative">
                                     <i class="bi bi-cart"></i>
                                     <span
                                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         {{ $cartCount }}
                                         <span class="visually-hidden">unread messages</span>
                                     </span>
-                                </button>
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <div class=" d-flex align-items-center me-3">
@@ -174,6 +175,22 @@
             showToast("{{ Session::get('message') }}");
         </script>
     @endif
+
+    @if (session('error_message'))
+        <script type="module">
+            showError("{{ Session::get('error_message') }}");
+        </script>
+    @endif
+
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script type="module">
+                showError("{{ $error }}");
+            </script>
+        @endforeach
+    @endif
+
 </body>
 
 </html>

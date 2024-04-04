@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Book;
+use App\Models\Cart;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
@@ -26,26 +27,36 @@ class TransactionController extends Controller
     }
     public function create(Request $request)
     {
-        $book = Book::find($request->book);
         $user = User::find($request->user_id);
+        $carts = Cart::all();
         if ($user === null) {
-            return redirect()->back()->with("message", "Invalid User Id.");
+            return redirect()->back()->with("error_message", "Invalid User Id.");
         }
         $setting = Setting::first();
         $date_create = Carbon::now()->addDays($setting->borrowing_duration);
         $due_date = $date_create->format('d/m/Y');
-        return view("admin.transition.create", compact("book", 'user', 'setting', 'due_date'));
+        return view("admin.transition.create", compact('carts', 'user', 'setting', 'due_date'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTransactionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreTransactionRequest $request)
     {
-        //
+        $user_id = $request->user_id;
+        $duration = $request->duration;
+        $due_date = $request->due_date;
+        $is_returned = false;
+        $returned_at = null;
+        $carts = Cart::all();
+        foreach ($carts as $cart) {
+            $transition = new Transaction();
+            $transition->book_id = $cart->book_id;
+            $transition->user_id = $user_id;
+            $transition->duration = $duration;
+            $transition->due_date = $due_date;
+            $transition->is_returned = $is_returned;
+            $transition->returned_at = $returned_at;
+            $transition->save();
+        }
+        Cart::truncate();
+        return redirect()->route('books.index')->with("message", "Successfully added.");
     }
 
     /**
