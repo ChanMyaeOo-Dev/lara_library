@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
+use App\Models\Book;
+use App\Models\Setting;
 use App\Models\Transaction;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
+use function PHPUnit\Framework\isEmpty;
 
 class TransactionController extends Controller
 {
@@ -17,15 +24,17 @@ class TransactionController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $book = Book::find($request->book);
+        $user = User::find($request->user_id);
+        if ($user === null) {
+            return redirect()->back()->with("message", "Invalid User Id.");
+        }
+        $setting = Setting::first();
+        $date_create = Carbon::now()->addDays($setting->borrowing_duration);
+        $due_date = $date_create->format('d/m/Y');
+        return view("admin.transition.create", compact("book", 'user', 'setting', 'due_date'));
     }
 
     /**

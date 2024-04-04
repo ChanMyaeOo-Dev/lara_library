@@ -48,11 +48,21 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item me-4 border-end pe-4">
+                                <button type="button" class="btn btn-light position-relative">
+                                    <i class="bi bi-cart"></i>
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ $cartCount }}
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                </button>
+                            </li>
                             <li class="nav-item dropdown">
                                 <div class=" d-flex align-items-center me-3">
                                     <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
                                         style="width: 40px;height:40px;"
-                                        class="me-2 border border-2 rounded-circle shadow-sm">
+                                        class="me-2 border border-2 rounded-circle object-fit-cover shadow-sm">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span>{{ Auth::user()->name }}</span>
@@ -77,9 +87,9 @@
             </div>
         </nav>
 
-        <div class="container-fluid">
+        <div class="container-fluid p-0">
             <div class="row min-vh-100 w-100">
-                <div id="side_bar" class="col-2 bg-white border-end px-0">
+                <div id="side_bar" class="col-2 bg-white border-end ps-2 pe-1">
                     <a href="{{ route('home') }}" class="text-decoration-none">
                         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 mt-3 rounded">
                             <i class="bi bi-house me-2"></i>
@@ -131,7 +141,7 @@
                     {{-- Transition --}}
                     <a href="{{ route('books.index') }}" class="text-decoration-none">
                         <div
-                            class="sidebar_item {{ request()->routeIs('transitions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+                            class="sidebar_item {{ request()->routeIs('transistions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
                             <i class="bi bi-router me-2"></i>
                             <p class="mb-0 text-uppercase">Transitions</p>
                         </div>
@@ -153,7 +163,7 @@
 
 
                 </div>
-                <div id="main_content" class="col-10 pb-4">
+                <div id="main_content" class="col-10 pb-4 mx-0 ps-3 pe-2">
                     @yield('content')
                 </div>
             </div>

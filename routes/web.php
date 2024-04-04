@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TransactionController;
@@ -32,3 +33,4 @@ Route::resource("books", BookController::class);
 Route::resource("transistions", TransactionController::class);
 Route::resource("users", UserController::class);
 Route::resource("settings", SettingController::class);
+Route::resource("carts", CartController::class);

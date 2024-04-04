@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -52,7 +53,8 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return view("admin.book.show", compact("book"));
+        $setting = Setting::first();
+        return view("admin.book.show", compact("book", "setting"));
     }
 
     public function edit(Book $book)

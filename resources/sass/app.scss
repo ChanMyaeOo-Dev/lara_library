@@ -10,6 +10,11 @@
 // Bootstrap
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+#main_content,
+#side_bar {
+    padding-top: 80px !important;
+}
+
 td,
 th {
     vertical-align: middle !important;

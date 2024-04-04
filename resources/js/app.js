@@ -3,9 +3,9 @@ import Swal from "sweetalert2";
 import jQuery from "jquery";
 import DataTable from "datatables.net-bs5";
 
-var navbarHeight = document.getElementById("top_nav_bar").offsetHeight;
-document.getElementById("main_content").style.paddingTop = navbarHeight + "px";
-document.getElementById("side_bar").style.paddingTop = navbarHeight + "px";
+// var navbarHeight = document.getElementById("top_nav_bar").offsetHeight;
+// document.getElementById("main_content").style.paddingTop = navbarHeight + "px";
+// document.getElementById("side_bar").style.paddingTop = navbarHeight + "px";
 
 new DataTable("#data_table");
 
