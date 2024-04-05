@@ -10,6 +10,18 @@
 // Bootstrap
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+#profile_cover {
+    position: relative;
+    #cover {
+        width: 100%;
+        background-color: gray;
+        height: 200px;
+    }
+    #profile {
+        margin-top: -100px;
+    }
+}
+
 #main_content,
 #side_bar {
     padding-top: 80px !important;

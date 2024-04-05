@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'roll_number' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'max:255', 'unique:users'],
             'role' => "required"
@@ -39,6 +41,7 @@ class UserController extends Controller
         }
 
         $user->name = $request->name;
+        $user->roll_number = $request->roll_number;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->role = $request->role;
@@ -47,16 +50,10 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index')->with("message", "New Member is successfully registered.");
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function show(User $user)
     {
-        //
+        $transactions = Transaction::where('user_id', $user->id)->get();
+        return view('admin.user.show', compact('user', 'transactions'));
     }
     public function edit(User $user)
     {
@@ -66,6 +63,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'roll_number' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id,' . $user->id],
             'phone' => [
                 'required', 'string', 'max:255',
@@ -83,6 +81,7 @@ class UserController extends Controller
         }
 
         $user->name = $request->name;
+        $user->roll_number = $request->roll_number;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->role = $request->role;

@@ -143,7 +143,7 @@
                     <a href="{{ route('transactions.index') }}" class="text-decoration-none">
                         <div
                             class="sidebar_item {{ request()->routeIs('transactions*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
-                            <i class="bi bi-router me-2"></i>
+                            <i class="bi bi-receipt me-2"></i>
                             <p class="mb-0 text-uppercase">Transitions</p>
                         </div>
                     </a>

@@ -16,6 +16,7 @@
                     <tr>
                         <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Student <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Roll No. <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Borrow Date<i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Returned_At <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Is_Returned <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
@@ -33,6 +34,7 @@
                                 </div>
                             </td>
                             <td>{{ $transaction->user->name }}</td>
+                            <td>{{ $transaction->user->roll_number }}</td>
                             <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
                             <td>
 

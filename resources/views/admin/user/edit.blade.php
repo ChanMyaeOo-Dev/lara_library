@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-4 d-flex align-items-center">
-        <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-dark me-2">
+        <a href="{{ route('users.index') }}" class="btn btn-sm btn-dark me-2">
             <i class="bi bi-arrow-left"></i>
         </a>
         <h4 class="text-uppercase mb-0">
@@ -41,6 +41,17 @@
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                         value="{{ $user->name }}" placeholder="Enter User Name...">
                     @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1">Roll Number</label>
+                    <input type="text" name="roll_number" class="form-control @error('roll_number') is-invalid @enderror"
+                        value="{{ $user->roll_number }}" placeholder="Enter Roll Number...">
+                    @error('roll_number')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

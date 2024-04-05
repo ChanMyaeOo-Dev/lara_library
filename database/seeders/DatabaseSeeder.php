@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin',
+            'roll_number' => '0',
             'email' => 'admin@gmail.com',
             'phone' => '09779866151',
             'role' => 'admin',
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Mg Mg',
+            'roll_number' => 'MUB-3012',
             'email' => 'mgmg@gmail.com',
             'role' => 'student',
             'profile_picture' => "default_user.svg"

@@ -45,6 +45,17 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="" class="mb-1">Roll Number</label>
+                    <input type="text" name="roll_number" class="form-control @error('roll_number') is-invalid @enderror"
+                        value="{{ old('roll_number') }}" placeholder="Enter Roll Number ...">
+                    @error('roll_number')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="" class="mb-1">Email</label>
                     <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
                         value="{{ old('email') }}" placeholder="Enter Member Email...">

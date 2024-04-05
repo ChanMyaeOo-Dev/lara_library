@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>Date <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Roll No. <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Name <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Email <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Phone <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
@@ -29,6 +30,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->created_at->format('M/d/Y') }}</td>
+                            <td>{{ $user->roll_number }}</td>
                             <td class="d-flex align-items-center">
                                 <img src="{{ asset('storage/' . $user->profile_picture) }}"
                                     class="object-fit-cover me-2 rounded-circle" style="width:40px;height:40px;">
@@ -39,6 +41,9 @@
                             <td class="text-uppercase">{{ $user->role }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
+                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-outline-dark me-1">
+                                        <i class="bi bi-info-square"></i>
+                                    </a>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>

@@ -1,0 +1,209 @@
+@extends('layouts.dashboard_layout')
+
+@section('content')
+    <div class="my-4 d-flex align-items-center">
+        <a href="{{ route('users.index') }}" class="btn btn-sm btn-dark me-2">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h4 class="text-uppercase mb-0">
+            Member informatoin
+        </h4>
+    </div>
+
+    <div class="d-flex gap-3 mb-3">
+        <div class="card w-25 rounded-sm bg-white p-2">
+            <div class="card-body">
+                <div id="profile_cover" class="mb-3 d-flex flex-column align-items-center">
+                    <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
+                        class="rounded object-fit-cover">
+                    <img id="profile" src="{{ asset('storage/' . $user->profile_picture) }}"
+                        class="shadow-sm rounded-circle shadow object-fit-cover mx-auto" style="width:150px;height:150px;">
+                </div>
+                <div class=" d-flex flex-column align-items-center justify-content-center mb-3">
+                    <p class="fs-4 mb-0 fw-bold text-center">{{ $user->name }}</p>
+                    <span class="badge text-bg-primary">{{ $user->role }}</span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1">Roll Number</label>
+                    <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-0">{{ $user->roll_number }}</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1">Email</label>
+                    <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-0">{{ $user->email }}</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1">Phone</label>
+                    <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-0">{{ $user->phone }}</p>
+                </div>
+                <button class="btn lg_btn btn-primary mb-0 w-100">Edit</button>
+            </div>
+        </div>
+        <div class="card w-75 rounded-sm bg-white">
+            <div class="card-body">
+                <p class="mb-4 mt-2 fs-4 ps-1 fw-semibold text-primary">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    Books To Be Return
+                </p>
+                <table id="data_table" class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                            <th>Borrow Date <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                            <th>Due Date <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                            <th>Action <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($transactions as $transaction)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ asset('storage/' . $transaction->book->book_image) }}"
+                                            class="me-2 rounded border border-1" style="width: 45px;height:45px;">
+                                        <span>{{ $transaction->book->title }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
+                                <td>
+
+                                    @if ($transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                        <span class="mb-0">
+                                            {{ date('M/d/Y', strtotime($transaction->due_date)) }}
+                                        </span>
+                                    @else
+                                        <span class="mb-0">
+                                            {{ date('M/d/Y', strtotime($transaction->due_date)) }}
+                                        </span><br>
+                                        <span class="badge rounded text-bg-primary">
+                                            {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex
+                                        align-items-center">
+                                        {{-- <a href="{{ route('transactions.show', $transaction->id) }}"
+                                            class="btn btn-sm btn-outline-dark me-1">
+                                            <i class="bi bi-check2-square"></i>
+                                        </a> --}}
+
+                                        <!-- Button trigger modal -->
+                                        <button id="{{ $transaction->book->title }}" onclick="returnBtnClick(this)"
+                                            type="button" class="btn btn-sm btn-outline-dark me-1" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            <i class="bi bi-check2-square"></i>
+                                        </button>
+
+                                        <form action="{{ route('transactions.destroy', $transaction->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-sm btn-outline-dark">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card rounded-sm bg-white">
+        <div class="card-body">
+            <p class="mb-3 mt-2 fs-4 ps-1 fw-semibold text-primary">
+                <i class="bi bi-calendar-date"></i>
+                History
+            </p>
+            <table id="data_table" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Borrow Date<i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Returned_At <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Action <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($transactions as $transaction)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $transaction->book->book_image) }}"
+                                        class="me-2 rounded border border-1" style="width: 45px;height:45px;">
+                                    <span>{{ $transaction->book->title }}</span>
+                                </div>
+                            </td>
+                            <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
+                            <td>
+
+                                @if ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                    -
+                                @elseif ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                    <span class="badge rounded text-bg-primary">
+                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                    </span>
+                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                    {{ $transaction->returned_at }}
+                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                    <span class="mb-0">
+                                        {{ $transaction->returned_at }}
+                                    </span><br>
+                                    <span class="badge rounded text-bg-primary">
+                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-outline-dark">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Returned</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="model_text" class="mb-0">
+                        Are you sure to update this book as returned.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function returnBtnClick(event) {
+            var title = event.id;
+            var model_text = document.getElementById('model_text');
+            model_text.innerHTML = 'Are you sure to update this book, <strong>' + title + '</strong> as returned.';
+        }
+    </script>
+@endsection

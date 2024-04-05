@@ -35,14 +35,18 @@ class Transaction extends Model
                 return null;
             }
         } else {
+            // return 1500;
             $currentDateTime = Carbon::now("Asia/Yangon");
             $dueDate = Carbon::parse($transaction->due_date, "Asia/Yangon");
 
             $diff = $currentDateTime->diffInDays($dueDate);
 
-            if ($currentDateTime > $dueDate) {
+            // Compare dates
+            if ($currentDateTime->greaterThan($dueDate)) {
                 $fine = $diff * $fine_rate;
                 return $fine;
+            } elseif ($currentDateTime->lessThan($dueDate)) {
+                return null;
             } else {
                 return null;
             }

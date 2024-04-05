@@ -3,10 +3,12 @@ import Swal from "sweetalert2";
 import jQuery from "jquery";
 import DataTable from "datatables.net-bs5";
 
-// var navbarHeight = document.getElementById("top_nav_bar").offsetHeight;
-// document.getElementById("main_content").style.paddingTop = navbarHeight + "px";
-// document.getElementById("side_bar").style.paddingTop = navbarHeight + "px";
-
+const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+);
+const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+);
 new DataTable("#data_table");
 
 // or via CommonJS
@@ -14,7 +16,7 @@ new DataTable("#data_table");
 window.showToast = function showToast(message) {
     const Toast = Swal.mixin({
         toast: true,
-        position: "bottom-end",
+        position: "bottom-start",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
@@ -32,7 +34,7 @@ window.showToast = function showToast(message) {
 window.showError = function showError(message) {
     const Toast = Swal.mixin({
         toast: true,
-        position: "bottom-end",
+        position: "bottom-start",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
