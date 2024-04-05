@@ -6,7 +6,7 @@
             <i class="bi bi-blockquote-right"></i>
             users
         </h4>
-        <a href="{{ route('users.create') }}" type="button" class="btn lg_btn btn-dark">
+        <a href="{{ route('users.create') }}" type="button" class="btn lg_btn btn-primary">
             Add New User
         </a>
     </div>

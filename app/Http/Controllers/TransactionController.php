@@ -29,8 +29,8 @@ class TransactionController extends Controller
             return redirect()->back()->with("error_message", "Invalid User Id.");
         }
         $setting = Setting::first();
-        $date_create = Carbon::now()->addDays($setting->borrowing_duration);
-        $due_date = $date_create->format('d/m/Y');
+        $date_create = Carbon::now("Asia/Yangon")->addDays($setting->borrowing_duration);
+        $due_date = $date_create->format('Y-m-d');
         return view("admin.transition.create", compact('carts', 'user', 'setting', 'due_date'));
     }
     public function store(StoreTransactionRequest $request)
@@ -68,28 +68,20 @@ class TransactionController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Transaction $transaction)
     {
-        //
-    }
+        $currentDateTime = Carbon::now("Asia/Yangon");
+        $dueDate = Carbon::parse($transaction->due_date, "Asia/Yangon");
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTransactionRequest  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
+        $diff = $currentDateTime->diffInDays($dueDate);
+        if ($currentDateTime > $dueDate) {
+            echo "It Ok";
+        } else {
+            echo "Let take Fine.";
+        }
+    }
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
-        //
     }
 
     /**

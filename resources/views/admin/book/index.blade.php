@@ -6,7 +6,7 @@
             <i class="bi bi-blockquote-right"></i>
             Books
         </h4>
-        <a href="{{ route('books.create') }}" type="button" class="btn lg_btn btn-dark">
+        <a href="{{ route('books.create') }}" type="button" class="btn lg_btn btn-primary">
             Add New Book
         </a>
     </div>
