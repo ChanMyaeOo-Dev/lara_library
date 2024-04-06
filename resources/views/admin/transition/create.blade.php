@@ -64,7 +64,11 @@
                         <i class="bi bi-person me-1"></i>
                         {{ $user->name }}
                     </p>
-
+                    <hr class="my-2">
+                    <p class="mb-0">
+                        <i class="bi bi-person-vcard me-1"></i>
+                        {{ $user->roll_number }}
+                    </p>
                     <hr class="my-2">
                     <p class="mb-0">
                         <i class="bi bi-phone me-1"></i>

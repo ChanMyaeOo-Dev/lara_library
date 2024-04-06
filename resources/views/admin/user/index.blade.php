@@ -41,7 +41,8 @@
                             <td class="text-uppercase">{{ $user->role }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-outline-dark me-1">
+                                    <a href="{{ route('users.show', $user->roll_number) }}"
+                                        class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-info-square"></i>
                                     </a>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-outline-dark me-1">

@@ -51,8 +51,9 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index')->with("message", "New Member is successfully registered.");
     }
-    public function show(User $user)
+    public function show($roll_number)
     {
+        $user = User::where('roll_number', $roll_number)->first();
         $transactions = Transaction::where('user_id', $user->id)->where('is_returned', false)->get();
         $histories = Transaction::where('user_id', $user->id)->where('is_returned', true)->get();
         return view('admin.user.show', compact('user', 'transactions', "histories"));
