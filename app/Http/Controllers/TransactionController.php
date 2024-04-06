@@ -12,10 +12,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-use function PHPUnit\Framework\isEmpty;
+use function PHPSTORM_META\map;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $transactions = Transaction::latest()->get();
@@ -24,23 +29,32 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $user = User::find($request->user_id);
-        $carts = Cart::all();
         if ($user === null) {
             return redirect()->back()->with("error_message", "Invalid User Id.");
+        }
+        // If the user exist
+        $user_current_book_ids = Transaction::where('user_id', $request->user_id)->where("is_returned", "=", false)->pluck('book_id');
+        $acceptCarts = Cart::whereNotIn('book_id', $user_current_book_ids)->get();
+        $rejectCarts = Cart::whereIn('book_id', $user_current_book_ids)->get();
+        if (count($acceptCarts) === 0) {
+            return redirect()->back()->with("error_message", "The user have already rented that books.");
         }
         $setting = Setting::first();
         $date_create = Carbon::now("Asia/Yangon")->addDays($setting->borrowing_duration);
         $due_date = $date_create->format('Y-m-d');
-        return view("admin.transition.create", compact('carts', 'user', 'setting', 'due_date'));
+        return view("admin.transition.create", compact('acceptCarts', 'rejectCarts', 'user', 'setting', 'due_date'));
     }
     public function store(StoreTransactionRequest $request)
     {
         $user_id = $request->user_id;
+
+        $user_current_book_ids = Transaction::where('user_id', $user_id)->where("is_returned", "=", false)->pluck('book_id');
+        $carts = Cart::whereNotIn('book_id', $user_current_book_ids)->get();
+
         $duration = $request->duration;
         $due_date = $request->due_date;
         $is_returned = false;
         $returned_at = null;
-        $carts = Cart::all();
         foreach ($carts as $cart) {
             $transition = new Transaction();
             $transition->book_id = $cart->book_id;
@@ -70,28 +84,20 @@ class TransactionController extends Controller
     }
     public function edit(Transaction $transaction)
     {
-        $currentDateTime = Carbon::now("Asia/Yangon");
-        $dueDate = Carbon::parse($transaction->due_date, "Asia/Yangon");
-
-        $diff = $currentDateTime->diffInDays($dueDate);
-        if ($currentDateTime > $dueDate) {
-            echo "It Ok";
-        } else {
-            echo "Let take Fine.";
-        }
     }
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
+        $transaction->is_returned = true;
+        $transaction->returned_at = Carbon::now("Asia/Yangon")->format("Y-m-d");
+        $transaction->update();
+        $book = Book::find($transaction->book_id);
+        $book->qty = ($book->qty + 1);
+        $book->update();
+        return redirect()->back()->with("message", "Successfully updated the transaction.");
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return redirect()->back()->with("message", "Successfully deleted the transaction.");
     }
 }

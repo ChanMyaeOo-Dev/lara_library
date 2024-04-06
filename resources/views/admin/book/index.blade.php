@@ -44,13 +44,15 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <form action="{{ route('carts.store') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                        <button class="btn btn-sm btn-outline-dark me-1">
-                                            <i class="bi bi-cart-plus"></i>
-                                        </button>
-                                    </form>
+                                    @if ($book->qty > 0)
+                                        <form action="{{ route('carts.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                            <button class="btn btn-sm btn-outline-dark me-1">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                     <a href="{{ route('books.show', $book->id) }}"
                                         class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-info-square"></i>

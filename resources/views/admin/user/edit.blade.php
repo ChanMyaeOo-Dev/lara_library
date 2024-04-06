@@ -73,7 +73,6 @@
                     <label for="" class="mb-1">Phone</label>
                     <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
                         value="{{ $user->phone }}" placeholder="Enter Member Phone...">
-
                     @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

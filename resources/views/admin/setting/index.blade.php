@@ -6,7 +6,7 @@
             <i class="bi bi-gear me-1"></i>
             General Settings
         </h4>
-        <button form="setting_form" type="submit" class="btn lg_btn btn-dark">
+        <button form="setting_form" type="submit" class="btn lg_btn btn-primary">
             Save Changes
         </button>
     </div>

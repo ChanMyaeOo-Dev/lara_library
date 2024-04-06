@@ -6,7 +6,7 @@
             <i class="bi bi-blockquote-right"></i>
             Categories
         </h4>
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" class="btn lg_btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Create New Category
         </button>
         <!-- Modal -->

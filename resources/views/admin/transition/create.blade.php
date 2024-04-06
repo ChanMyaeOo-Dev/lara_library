@@ -11,7 +11,7 @@
 
         {{-- Books Table --}}
         <div class="card w-75 rounded-sm bg-white p-2">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column justify-content-between">
                 <table class="table">
                     <thead>
                         <tr>
@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($carts as $cart)
+                        @foreach ($acceptCarts as $cart)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -37,6 +37,19 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                @if (count($rejectCarts) !== 0)
+                    <div class="alert alert-primary mb-0" role="alert">
+                        <p class="mb-3">
+                            The following books can not be rent because the user have already rented those books.
+                        </p>
+                        <ul>
+                            @foreach ($rejectCarts as $cart)
+                                <li>{{ $cart->book->title }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
 

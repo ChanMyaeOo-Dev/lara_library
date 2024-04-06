@@ -27,10 +27,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware("auth")->group(function () {
+    Route::resource("category", CategoryController::class);
+    Route::resource("books", BookController::class);
+    Route::resource("transactions", TransactionController::class);
+    Route::resource("users", UserController::class);
+    Route::resource("settings", SettingController::class);
+    Route::resource("carts", CartController::class);
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource("category", CategoryController::class);
-Route::resource("books", BookController::class);
-Route::resource("transactions", TransactionController::class);
-Route::resource("users", UserController::class);
-Route::resource("settings", SettingController::class);
-Route::resource("carts", CartController::class);

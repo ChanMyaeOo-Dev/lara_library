@@ -11,7 +11,7 @@
     </div>
 
     <div class="d-flex gap-3 mb-3">
-        <div class="card w-25 rounded-sm bg-white p-2">
+        <div class="card h-auto w-25 rounded-sm bg-white p-2">
             <div class="card-body">
                 <div id="profile_cover" class="mb-3 d-flex flex-column align-items-center">
                     <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
@@ -38,7 +38,11 @@
                     <label for="" class="mb-1">Phone</label>
                     <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-0">{{ $user->phone }}</p>
                 </div>
-                <button class="btn lg_btn btn-primary mb-0 w-100">Edit</button>
+
+                <a href="{{ route('users.edit', $user->id) }}" class="btn lg_btn btn-primary mb-0 w-100">
+                    <i class="bi bi-pencil-square "></i>
+                    Edit
+                </a>
             </div>
         </div>
         <div class="card w-75 rounded-sm bg-white">
@@ -85,26 +89,31 @@
                                 <td>
                                     <div class="d-flex
                                         align-items-center">
-                                        {{-- <a href="{{ route('transactions.show', $transaction->id) }}"
-                                            class="btn btn-sm btn-outline-dark me-1">
-                                            <i class="bi bi-check2-square"></i>
-                                        </a> --}}
-
+                                        <form id="{{ 'update_form_' . $transaction->id }}"
+                                            action="{{ route('transactions.update', $transaction->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
                                         <!-- Button trigger modal -->
-                                        <button id="{{ $transaction->book->title }}" onclick="returnBtnClick(this)"
+                                        <button id="{{ $transaction->book->title }}"
+                                            transaction_id="{{ $transaction->id }}" onclick="returnBtnClick(this)"
                                             type="button" class="btn btn-sm btn-outline-dark me-1" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
+                                            data-bs-target="#return_model">
                                             <i class="bi bi-check2-square"></i>
                                         </button>
 
-                                        <form action="{{ route('transactions.destroy', $transaction->id) }}"
-                                            method="POST">
+                                        <form id="{{ 'delete_form_' . $transaction->id }}"
+                                            action="{{ route('transactions.destroy', $transaction->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-sm btn-outline-dark">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
                                         </form>
+                                        <!-- Button trigger modal -->
+                                        <button id="{{ $transaction->book->title }}"
+                                            transaction_id="{{ $transaction->id }}" onclick="returnBtnClick(this)"
+                                            type="button" class="btn btn-sm btn-outline-dark me-1" data-bs-toggle="modal"
+                                            data-bs-target="#delete_confirm_model">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -131,38 +140,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($transactions as $transaction)
+                    @foreach ($histories as $history)
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/' . $transaction->book->book_image) }}"
+                                    <img src="{{ asset('storage/' . $history->book->book_image) }}"
                                         class="me-2 rounded border border-1" style="width: 45px;height:45px;">
-                                    <span>{{ $transaction->book->title }}</span>
+                                    <span>{{ $history->book->title }}</span>
                                 </div>
                             </td>
-                            <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
+                            <td>{{ $history->created_at->format('M/d/Y') }}</td>
                             <td>
 
-                                @if ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                @if ($history->returned_at === null && $history->calculateFine($history, $setting->fine_rate) === null)
                                     -
-                                @elseif ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                @elseif ($history->returned_at === null && $history->calculateFine($history, $setting->fine_rate) != null)
                                     <span class="badge rounded text-bg-primary">
-                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                        {{ 'Fine: ' . $history->calculateFine($history, $setting->fine_rate) . ' Kyats' }}
                                     </span>
-                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
-                                    {{ $transaction->returned_at }}
-                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                @elseif ($history->returned_at != null && $history->calculateFine($history, $setting->fine_rate) === null)
+                                    {{ $history->returned_at }}
+                                @elseif ($history->returned_at != null && $history->calculateFine($history, $setting->fine_rate) != null)
                                     <span class="mb-0">
-                                        {{ $transaction->returned_at }}
+                                        {{ $history->returned_at }}
                                     </span><br>
                                     <span class="badge rounded text-bg-primary">
-                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                        {{ 'Fine: ' . $history->calculateFine($history, $setting->fine_rate) . ' Kyats' }}
                                     </span>
                                 @endif
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST">
+                                    <form action="{{ route('transactions.destroy', $history->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-outline-dark">
@@ -178,12 +187,12 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Return Modal -->
+    <div class="modal fade" id="return_model" tabindex="-1" aria-labelledby="return_model_label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Returned</h1>
+                    <h1 class="modal-title fs-5" id="return_model_label">Confirm Returned</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -193,7 +202,31 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Confirm</button>
+                    <button type="submit" id="update_form_btn" form="update_form_"
+                        class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div class="modal fade" id="delete_confirm_model" tabindex="-1" aria-labelledby="delete_confirm_model_label"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="delete_confirm_model_label">Confirm Returned</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="model_delete_text" class="mb-0">
+                        Are you sure to delete this book.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" id="delete_form_btn" form="delete_form_"
+                        class="btn btn-primary">Confirm</button>
                 </div>
             </div>
         </div>
@@ -203,7 +236,16 @@
         function returnBtnClick(event) {
             var title = event.id;
             var model_text = document.getElementById('model_text');
+            var model_delete_text = document.getElementById('model_delete_text');
+
+            var update_form_btn = document.getElementById('update_form_btn');
+            var delete_form_btn = document.getElementById('delete_form_btn');
+            var transaction_id = event.getAttribute('transaction_id');
+            update_form_btn.setAttribute('form', 'update_form_' + transaction_id);
+            delete_form_btn.setAttribute('form', 'delete_form_' + transaction_id);
+
             model_text.innerHTML = 'Are you sure to update this book, <strong>' + title + '</strong> as returned.';
+            model_delete_text.innerHTML = 'Are you sure to delete this book, <strong>' + title + '</strong>.';
         }
     </script>
 @endsection

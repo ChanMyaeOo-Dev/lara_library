@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-4 d-flex align-items-center">
-        <a href="{{ route('books.index') }}" class="btn btn-outline-dark me-2">
+        <a href="{{ route('books.index') }}" class="btn btn-sm btn-dark me-2">
             <i class="bi bi-arrow-left"></i>
         </a>
         <h4 class="text-uppercase mb-0">

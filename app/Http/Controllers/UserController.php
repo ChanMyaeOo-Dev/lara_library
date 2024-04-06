@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -52,8 +53,9 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
-        $transactions = Transaction::where('user_id', $user->id)->get();
-        return view('admin.user.show', compact('user', 'transactions'));
+        $transactions = Transaction::where('user_id', $user->id)->where('is_returned', false)->get();
+        $histories = Transaction::where('user_id', $user->id)->where('is_returned', true)->get();
+        return view('admin.user.show', compact('user', 'transactions', "histories"));
     }
     public function edit(User $user)
     {
@@ -64,15 +66,23 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'roll_number' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id,' . $user->id],
+            'email' => [
+                'required', 'string', 'email', 'max:255',
+                Rule::unique('users')->ignore($user->id)
+            ],
             'phone' => [
                 'required', 'string', 'max:255',
-                'unique:users,id,' . $user->id
+                Rule::unique('users')->ignore($user->id)
             ],
             'role' => "required"
+        ], [
+            "phone" => "Phone Number must be unique."
         ]);
 
         if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture != "default_user.svg") {
+                Storage::delete("public/" . $user->profile_picture);
+            }
             $newName = uniqid() . '_profile_picture.' . $request->file("profile_picture")->getClientOriginalExtension();
             $request->file("profile_picture")->storeAs("public", $newName);
             $user->profile_picture = $newName;

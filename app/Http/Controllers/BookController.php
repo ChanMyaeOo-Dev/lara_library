@@ -12,6 +12,10 @@ use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -65,6 +69,17 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, Book $book)
     {
+        if ($request->hasFile('book_image')) {
+            if ($book->book_image != "default_book_image.jpg") {
+                Storage::delete("public/" . $book->book_image);
+            }
+            $newName = uniqid() . '_book_image.' . $request->file("book_image")->getClientOriginalExtension();
+            $request->file("book_image")->storeAs("public", $newName);
+            $book->book_image = $newName;
+        } else {
+            $book->book_image = $request->old_book_image;
+        }
+
         $book->title = $request->title;
         $book->slug = Str::slug($request->title);
         $book->description = $request->description;
