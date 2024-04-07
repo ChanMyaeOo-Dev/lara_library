@@ -24,9 +24,9 @@
                 <div class="modal-body">
                     <form id="user_id_form" action="{{ route('transactions.create') }}" method="GET" target="_blank">
                         <div class="mb-3">
-                            <label for="" class="mb-1">User Id</label>
-                            <input form="user_id_form" type="text" name="user_id" class="form-control"
-                                placeholder="Enter User Id...">
+                            <label for="" class="mb-1">Student Roll Number</label>
+                            <input form="user_id_form" type="text" name="roll_number" class="form-control"
+                                placeholder="Enter Roll Number...">
                         </div>
                     </form>
                 </div>

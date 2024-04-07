@@ -28,12 +28,12 @@ class TransactionController extends Controller
     }
     public function create(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = User::where("roll_number", $request->roll_number)->first();
         if ($user === null) {
-            return redirect()->back()->with("error_message", "Invalid User Id.");
+            return redirect()->back()->with("error_message", "Invalid Roll Number.");
         }
         // If the user exist
-        $user_current_book_ids = Transaction::where('user_id', $request->user_id)->where("is_returned", "=", false)->pluck('book_id');
+        $user_current_book_ids = Transaction::where('user_id', $user->id)->where("is_returned", "=", false)->pluck('book_id');
         $acceptCarts = Cart::whereNotIn('book_id', $user_current_book_ids)->get();
         $rejectCarts = Cart::whereIn('book_id', $user_current_book_ids)->get();
         if (count($acceptCarts) === 0) {
