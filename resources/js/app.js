@@ -10,6 +10,7 @@ const tooltipList = [...tooltipTriggerList].map(
     (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
 );
 new DataTable("#data_table");
+new DataTable("#data_table_history");
 
 // or via CommonJS
 // const Swal = require("sweetalert2");

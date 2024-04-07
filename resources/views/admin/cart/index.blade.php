@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-4 d-flex align-items-center justify-content-between">
-        <h4 class="text-uppercase">
+        <h4 class="text-uppercase text-primary me-1 fw-bold">
             <i class="bi bi-cart"></i>
             Cart
         </h4>

@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="my-4 d-flex align-items-center justify-content-between">
-        <h4 class="text-uppercase">
-            <i class="bi bi-blockquote-right"></i>
+        <h4 class="text-uppercase text-primary me-1 fw-bold">
+            <i class="bi bi-book me-1"></i>
             Books
         </h4>
         <a href="{{ route('books.create') }}" type="button" class="btn lg_btn btn-primary">
@@ -13,7 +13,6 @@
 
     <div class="card rounded-sm bg-white">
         <div class="card-body">
-
             <table id="data_table" class="table" style="width:100%">
                 <thead>
                     <tr>

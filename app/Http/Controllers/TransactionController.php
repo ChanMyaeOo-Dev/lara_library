@@ -97,6 +97,9 @@ class TransactionController extends Controller
     }
     public function destroy(Transaction $transaction)
     {
+        $book = Book::find($transaction->book_id);
+        $book->qty = ($book->qty + 1);
+        $book->update();
         $transaction->delete();
         return redirect()->back()->with("message", "Successfully deleted the transaction.");
     }

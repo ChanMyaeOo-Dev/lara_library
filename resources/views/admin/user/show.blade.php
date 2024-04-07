@@ -72,7 +72,6 @@
                                 </td>
                                 <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
                                 <td>
-
                                     @if ($transaction->calculateFine($transaction, $setting->fine_rate) === null)
                                         <span class="mb-0">
                                             {{ date('M/d/Y', strtotime($transaction->due_date)) }}
@@ -130,7 +129,7 @@
                 <i class="bi bi-calendar-date"></i>
                 History
             </p>
-            <table id="data_table" class="table" style="width:100%">
+            <table id="data_table_history" class="table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
@@ -220,7 +219,7 @@
                 </div>
                 <div class="modal-body">
                     <p id="model_delete_text" class="mb-0">
-                        Are you sure to delete this book.
+                        Are you sure to delete the transaction for this book.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -245,7 +244,8 @@
             delete_form_btn.setAttribute('form', 'delete_form_' + transaction_id);
 
             model_text.innerHTML = 'Are you sure to update this book, <strong>' + title + '</strong> as returned.';
-            model_delete_text.innerHTML = 'Are you sure to delete this book, <strong>' + title + '</strong>.';
+            model_delete_text.innerHTML = 'Are you sure to delete the transaction for this book, <strong>' + title +
+                '</strong>.';
         }
     </script>
 @endsection

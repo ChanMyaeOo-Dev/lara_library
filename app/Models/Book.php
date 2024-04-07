@@ -14,4 +14,16 @@ class Book extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function users()
+    {
+        return $this->hasManyThrough(
+            User::class, // The related model
+            Transaction::class, // The intermediate model
+            'book_id', // Foreign key on the intermediate model
+            'id', // Foreign key on the related model
+            'id', // Local key on the book model
+            'user_id' // Local key on the intermediate model
+        )->where("is_returned", '=', false);
+    }
 }

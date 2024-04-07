@@ -1,18 +1,18 @@
 <div id="side_bar" class="col-2 bg-white border-end ps-2 pe-1">
-    <a href="{{ route('home') }}" class="text-decoration-none">
+    <a href="{{ route('/') }}" class="text-decoration-none">
         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 mt-3 rounded">
             <i class="bi bi-house me-2"></i>
             <p class="mb-0 text-uppercase">Dashboard</p>
         </div>
     </a>
-    <a href="{{ route('home') }}" class="text-decoration-none">
+    <a href="{{ route('/') }}" class="text-decoration-none">
         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 rounded">
             <i class="bi bi-calendar3-week me-2"></i>
             <p class="mb-0 text-uppercase">GG</p>
         </div>
     </a>
 
-    <a href="{{ route('home') }}" class="text-decoration-none">
+    <a href="{{ route('/') }}" class="text-decoration-none">
         <div class="sidebar_item d-flex align-items-center p-2 mx-3 mb-2 rounded">
             <i class="bi bi-book me-2"></i>
             <p class="mb-0 text-uppercase">Books</p>

@@ -41,10 +41,12 @@ select,
 
 .sidebar_item {
     color: #212121;
+    padding: 10px !important;
 }
 .sidebar_item_active {
-    background: $blue-100;
-    color: black;
+    padding: 10px !important;
+    background: $blue-500;
+    color: white;
 }
 
 .custom_photo_div {

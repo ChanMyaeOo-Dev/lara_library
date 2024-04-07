@@ -1,0 +1,42 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Bootstrap
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+#main_content,
+#side_bar {
+    padding-top: 80px !important;
+}
+
+.sidebar_item {
+    color: #343434;
+}
+
+.side_bar_icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    background: $light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #343434;
+}
+
+.side_bar_icon_active {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    background: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
