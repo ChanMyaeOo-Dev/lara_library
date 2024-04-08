@@ -52,7 +52,7 @@
                                             </button>
                                         </form>
                                     @endif
-                                    <a href="{{ route('books.show', $book->id) }}"
+                                    <a href="{{ route('books.show', $book->slug) }}"
                                         class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-info-square"></i>
                                     </a>

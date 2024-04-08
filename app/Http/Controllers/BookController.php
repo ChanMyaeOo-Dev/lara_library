@@ -55,8 +55,9 @@ class BookController extends Controller
         return redirect()->route('books.index')->with("message", "New Book has been successfully added.");
     }
 
-    public function show(Book $book)
+    public function show($slug)
     {
+        $book = Book::where('slug', $slug)->first();
         $setting = Setting::first();
         return view("admin.book.show", compact("book", "setting"));
     }
