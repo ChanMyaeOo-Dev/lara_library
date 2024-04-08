@@ -1,7 +1,7 @@
 @extends('layouts.dashboard_layout')
 
 @section('content')
-    <div class="my-4 d-flex align-items-center justify-content-between">
+    <div class="my-3 d-flex align-items-center justify-content-between">
         <h4 class="text-uppercase text-primary me-1 fw-bold">
             {{-- <i class="bi bi-book me-1"></i> --}}
             Dashboard
@@ -14,7 +14,7 @@
 
         <div class="w-100 card p-3 bg-white">
             <div class="card-body">
-                <div class="d-flex align-items-start border-bottom py-3">
+                <div class="d-flex align-items-start border-bottom py-2">
                     <div class="bg-primary rounded-circle p-3 me-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hi">
                             <path fill-rule="evenodd"
@@ -31,7 +31,7 @@
         </div>
         <div class="w-100 card p-3 bg-white">
             <div class="card-body">
-                <div class="d-flex align-items-start border-bottom py-3">
+                <div class="d-flex align-items-start border-bottom py-2">
                     <div class="bg-primary rounded-circle p-3 me-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hi">
                             <path fill-rule="evenodd"
@@ -50,7 +50,7 @@
         </div>
         <div class="w-100 card p-3 bg-white">
             <div class="card-body">
-                <div class="d-flex align-items-start border-bottom py-3">
+                <div class="d-flex align-items-start border-bottom py-2">
                     <div class="bg-primary rounded-circle p-3 me-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hi">
                             <path
@@ -66,7 +66,7 @@
         </div>
         <div class="w-100 card p-3 bg-white">
             <div class="card-body">
-                <div class="d-flex align-items-start border-bottom py-3">
+                <div class="d-flex align-items-start border-bottom py-2">
                     <div class="bg-primary rounded-circle p-3 me-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hi">
                             <path
@@ -83,6 +83,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+    </div>
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+        <div class="w-50 p-5 card bg-white">
+            <h5 class="text-primary mb-4 fw-normal">
+                Books Count By Category
+            </h5>
+            <canvas id="book_count_chart" class=""></canvas>
+        </div>
+
+        <div class="w-50 p-5 card bg-white">
+            <h5 class="text-primary mb-4 fw-normal">
+                Transaction Count In Last Six Months
+            </h5>
+            <canvas id="transaction_count_chart" class=""></canvas>
         </div>
 
     </div>
@@ -151,4 +167,9 @@
             </table>
         </div>
     </div>
+
+    <script type="module">
+        showBookCountChart({!! json_encode($categoryBookCount) !!});
+        showTransactionCountChart({!! json_encode($transactionCountsInLastSixMonth) !!});
+    </script>
 @endsection

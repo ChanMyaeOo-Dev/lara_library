@@ -6,7 +6,8 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,23 @@ class DashboardController extends Controller
         $userCount = User::count();
         $transactionCount = Transaction::count();
         $categoryCount = Category::count();
-        return view('admin.dashboard.index', compact('books', 'userCount', 'categoryCount', 'transactionCount'));
+
+        $categoryBookCount = Book::join('categories', 'books.category_id', '=', 'categories.id')
+            ->select('categories.title', DB::raw('count(*) as book_count'))
+            ->groupBy('categories.title')
+            ->pluck('book_count', 'title');
+
+        $transactionCountsInLastSixMonth = [];
+        for ($i = 0; $i < 6; $i++) {
+            // Get the date for the start of the current month
+            $startDate = Carbon::now()->subMonths($i)->startOfMonth();
+            // Get the date for the end of the current month
+            $endDate = Carbon::now()->subMonths($i)->endOfMonth();
+
+            $transactionCount = Transaction::whereBetween('created_at', [$startDate, $endDate])->count();
+            $transactionCountsInLastSixMonth[$startDate->format('M')] = $transactionCount;
+        }
+
+        return view('admin.dashboard.index', compact('books', 'categoryBookCount',  'userCount', 'categoryCount', 'transactionCount', 'transactionCountsInLastSixMonth'));
     }
 }
