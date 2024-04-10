@@ -5,7 +5,7 @@
         <div class="p-5">
             <img src="{{ asset('storage/logo_landscape.png') }}" style="width: 120px;" class="mb-3">
             <p class="h2 text-primary fw-bold mb-0 text-uppercase">
-                Login <span class=" fw-semibold text-dark">To Admin Account</span>
+                Login <span class=" fw-semibold text-dark">To Your Account</span>
             </p>
             <p class="fs-6 text-secondary mb-5">
                 Enter your credential to log into your account.

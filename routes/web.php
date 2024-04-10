@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TextBookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +27,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name("/");
-
 Auth::routes();
+Route::get('/books/search', [HomeController::class, "search"])->name('books.search');
 
-Route::middleware("auth")->group(function () {
+Route::middleware("auth")->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
     Route::resource("category", CategoryController::class);
     Route::resource("books", BookController::class);
@@ -36,3 +39,12 @@ Route::middleware("auth")->group(function () {
     Route::resource("settings", SettingController::class);
     Route::resource("carts", CartController::class);
 });
+
+Route::resource("text-books", TextBookController::class);
+
+Route::middleware("auth")->group(
+    function () {
+        Route::resource("bookmarks", BookMarkController::class);
+        Route::resource("wishlists", WishListController::class);
+    }
+);

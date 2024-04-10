@@ -54,4 +54,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class)->where('is_returned', '=', false);
     }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(BookMark::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(WishList::class);
+    }
 }

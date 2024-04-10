@@ -18,6 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $books = Book::latest()->get();
+        $transactions = Transaction::latest()->get();
         $userCount = User::count();
         $transactionCount = Transaction::count();
         $categoryCount = Category::count();
@@ -34,10 +35,10 @@ class DashboardController extends Controller
             // Get the date for the end of the current month
             $endDate = Carbon::now()->subMonths($i)->endOfMonth();
 
-            $transactionCount = Transaction::whereBetween('created_at', [$startDate, $endDate])->count();
-            $transactionCountsInLastSixMonth[$startDate->format('M')] = $transactionCount;
+            $transaction = Transaction::whereBetween('created_at', [$startDate, $endDate])->count();
+            $transactionCountsInLastSixMonth[$startDate->format('M')] = $transaction;
         }
 
-        return view('admin.dashboard.index', compact('books', 'categoryBookCount',  'userCount', 'categoryCount', 'transactionCount', 'transactionCountsInLastSixMonth'));
+        return view('admin.dashboard.index', compact('books', 'categoryBookCount',  'userCount', 'categoryCount', 'transactions', 'transactionCount', 'transactionCountsInLastSixMonth'));
     }
 }

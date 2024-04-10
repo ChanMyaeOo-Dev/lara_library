@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $books = Book::orderBy('created_at', 'desc')->take(10)->get();
+        return view('home', compact("books"));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $books = Book::where('title', 'like', "%$query%")->get();
+
+        return response()->json($books);
     }
 }

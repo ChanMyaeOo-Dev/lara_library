@@ -10,6 +10,19 @@
 // Bootstrap
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+.navbar-toggler {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-toggler:focus {
+    border: 1px solid #21212170 !important;
+    box-shadow: none !important;
+}
+
 .hi {
     width: 28px;
     height: 28px;
@@ -30,7 +43,7 @@
 
 #main_content,
 #side_bar {
-    padding-top: 80px !important;
+    padding-top: 0px !important;
 }
 
 td,
@@ -77,4 +90,161 @@ select,
     align-items: center;
     background-color: #343434;
     color: white;
+}
+
+// Client Styles
+
+.nav_logo {
+    width: 160px;
+}
+
+#app_layout {
+    padding-top: 90px !important;
+}
+
+.carousel-item {
+    height: 200px;
+}
+
+.book_grid_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.book_image {
+    height: 160px;
+}
+
+.custom-dropdown-menu {
+    width: 100%;
+}
+
+.search_input:focus-visible {
+    outline: none !important;
+}
+
+.search_book_img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.profile_card_item {
+    transition: 0.3s;
+}
+
+.profile_card_item:hover {
+    p {
+        color: $primary !important;
+        font-weight: 500 !important;
+    }
+}
+
+.last_nav_item {
+    border-bottom: 1px solid #21212130;
+}
+
+@media (min-width: 768px) {
+    #main_content,
+    #side_bar {
+        padding-top: 80px !important;
+    }
+
+    .last_nav_item {
+        border-bottom: none !important;
+    }
+
+    .nav_logo {
+        width: 200px;
+    }
+
+    .carousel-item {
+        height: 300px;
+    }
+    .book_image {
+        height: 240px;
+    }
+    .book_grid_container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 14px;
+        grid-row-gap: 14px;
+    }
+}
+
+// animation
+.card-container {
+    height: 235px;
+    position: relative;
+    border-radius: 8.5px;
+}
+
+.card-container::before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100%);
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+}
+
+.animate_card {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.animate_card .img-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100%);
+    transition: scale 0.6s, rotate 0.6s, filter 1s;
+}
+
+.animate_card .img-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animate_card .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    padding: 18px;
+    line-height: 1.5;
+    border-radius: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(50px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animate_card:hover .content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate_card:hover .img-content {
+    scale: 2.3;
+    rotate: 27deg;
+    filter: blur(7px) brightness(60%);
 }

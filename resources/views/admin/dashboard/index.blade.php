@@ -23,7 +23,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="mb-0 fs-5">Total Transactions</p>
+                        <p class="mb-0 fs-6">Total Transactions</p>
                         <p class="mb-0 fs-3">{{ $transactionCount }}</p>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="mb-0 fs-5">Total Users</p>
+                        <p class="mb-0 fs-6">Total Users</p>
                         <p class="mb-0 fs-3">{{ $userCount }}</p>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="mb-0 fs-5">Total Books</p>
+                        <p class="mb-0 fs-6">Total Books</p>
                         <p class="mb-0 fs-3">{{ count($books) }}</p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="mb-0 fs-5">Total Category</p>
+                        <p class="mb-0 fs-6">Total Category</p>
                         <p class="mb-0 fs-3">{{ $categoryCount }}</p>
                     </div>
                 </div>
@@ -104,55 +104,69 @@
     </div>
 
     <div class="card rounded-sm bg-white">
-        <div class="card-body">
+        <div class="card-body p-4">
+            <h5 class="text-primary mb-4 fw-normal">
+                Latest Transactions
+            </h5>
             <table id="data_table" class="table" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Date <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Title <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Author <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Category <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
-                        <th>Stock <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Student <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Roll No. <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Borrow Date<i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Returned_At <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                        <th>Is_Returned <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                         <th>Action <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($books as $book)
+                    @foreach ($transactions as $transaction)
                         <tr>
-                            <td>{{ $book->created_at->format('M/d/Y') }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/' . $book->book_image) }}"
+                                    <img src="{{ asset('storage/' . $transaction->book->book_image) }}"
                                         class="me-2 rounded border border-1" style="width: 45px;height:45px;">
-                                    <span>{{ $book->title }}</span>
+                                    <span>{{ $transaction->book->title }}</span>
                                 </div>
                             </td>
-                            <td>{{ $book->author }}</td>
-                            <td class={{ $book->category ? '' : 'text-black-50' }}>
-                                {{ $book->category ? $book->category->title : 'uncategorize' }}</td>
-                            <td class="{{ $book->qty <= 0 ? 'text-danger' : '' }}">
-                                {{ $book->qty <= 0 ? 'out of stock' : $book->qty }}
-                            </td>
+                            <td>{{ $transaction->user->name }}</td>
+                            <td>{{ $transaction->user->roll_number }}</td>
+                            <td>{{ $transaction->created_at->format('M/d/Y') }}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    @if ($book->qty > 0)
-                                        <form action="{{ route('carts.store') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <button class="btn btn-sm btn-outline-dark me-1">
-                                                <i class="bi bi-cart-plus"></i>
-                                            </button>
-                                        </form>
-                                    @endif
-                                    <a href="{{ route('books.show', $book->slug) }}"
+
+                                @if ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                    -
+                                @elseif ($transaction->returned_at === null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                    <span class="badge rounded text-bg-primary">
+                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                    </span>
+                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) === null)
+                                    {{ $transaction->returned_at }}
+                                @elseif ($transaction->returned_at != null && $transaction->calculateFine($transaction, $setting->fine_rate) != null)
+                                    <span class="mb-0">
+                                        {{ $transaction->returned_at }}
+                                    </span><br>
+                                    <span class="badge rounded text-bg-primary">
+                                        {{ 'Fine: ' . $transaction->calculateFine($transaction, $setting->fine_rate) . ' Kyats' }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td>{{ $transaction->is_returned == 0 ? 'NO' : 'YES' }}</td>
+                            <td>
+                                <div class="d-flex
+                                        align-items-center">
+                                    <a href="{{ route('transactions.show', $transaction->id) }}"
                                         class="btn btn-sm btn-outline-dark me-1">
                                         <i class="bi bi-info-square"></i>
                                     </a>
-                                    <a href="{{ route('books.edit', $book->id) }}"
+
+                                    <a href="{{ route('transactions.edit', $transaction->id) }}"
                                         class="btn btn-sm btn-outline-dark me-1">
-                                        <i class="bi bi-pencil-square"></i>
+                                        <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+
+                                    <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-outline-dark">

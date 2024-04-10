@@ -1,45 +1,54 @@
 <nav id="top_nav_bar" class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
-            <img src="{{ asset('storage/logo_landscape.png') }}" class="" style="width: 200px;">
+            <img src="{{ asset('storage/logo_landscape.png') }}" class="nav_logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
+            <i class="bi bi-list text-dark"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-
             </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item pe-md-3">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        Text Books
+                    </a>
+                </li>
+
+                <li class="nav-item pe-md-3">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        Project Books
+                    </a>
+                </li>
+
+                <li class="nav-item pe-md-3">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        Contact
+                    </a>
+                </li>
+
+                <li class="nav-item pe-md-3 pb-2 pb-md-0 last_nav_item">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        FAQs
+                    </a>
+                </li>
+
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="btn btn-primary" href="{{ route('login') }}">
+                                <i class="bi bi-person-circle me-1"></i>
+                                {{ __('Login') }}</a>
                         </li>
                     @endif
                 @else
-                    <li class="nav-item me-4 border-end pe-4">
-                        <a href="{{ route('carts.index') }}" type="button" class="btn btn-light position-relative">
-                            <i class="bi bi-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ $cartCount }}
-                                <span class="visually-hidden">unread messages</span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <div class=" d-flex align-items-center me-3">
+                    <li class="nav-item dropdown my-3 my-md-0">
+                        <div class=" d-flex align-items-center">
                             <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
                                 style="width: 40px;height:40px;"
                                 class="me-2 border border-2 rounded-circle object-fit-cover shadow-sm">

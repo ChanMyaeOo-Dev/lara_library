@@ -11,20 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    @vite(['resources/sass/app_client.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="bg-white">
         @include('layouts.user_nav_bar')
-        <div class="container-fluid p-0">
-            <div class="row min-vh-100 w-100">
-                @include('layouts.user_side_bar')
-                <div id="main_content" class="col-10 pb-4 mx-0 ps-3 pe-2">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
+        @yield('content')
     </div>
     @if (session('message'))
         <script type="module">
