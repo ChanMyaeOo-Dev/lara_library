@@ -109,13 +109,13 @@ select,
 .book_grid_container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
 }
 
 .book_image {
-    height: 160px;
+    height: 140px;
 }
 
 .custom-dropdown-menu {
@@ -139,6 +139,7 @@ select,
 .profile_card_item:hover {
     p {
         color: $primary !important;
+        font-weight: 500;
         font-weight: 500 !important;
     }
 }
@@ -147,38 +148,9 @@ select,
     border-bottom: 1px solid #21212130;
 }
 
-@media (min-width: 768px) {
-    #main_content,
-    #side_bar {
-        padding-top: 80px !important;
-    }
-
-    .last_nav_item {
-        border-bottom: none !important;
-    }
-
-    .nav_logo {
-        width: 200px;
-    }
-
-    .carousel-item {
-        height: 300px;
-    }
-    .book_image {
-        height: 240px;
-    }
-    .book_grid_container {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-column-gap: 14px;
-        grid-row-gap: 14px;
-    }
-}
-
 // animation
 .card-container {
-    height: 235px;
+    height: 240px !important;
     position: relative;
     border-radius: 8.5px;
 }
@@ -246,5 +218,36 @@ select,
 .animate_card:hover .img-content {
     scale: 2.3;
     rotate: 27deg;
-    filter: blur(7px) brightness(60%);
+    filter: blur(5px) brightness(60%);
+}
+
+// Card Animation end
+
+@media (min-width: 768px) {
+    #main_content,
+    #side_bar {
+        padding-top: 80px !important;
+    }
+
+    .last_nav_item {
+        border-bottom: none !important;
+    }
+
+    .nav_logo {
+        width: 200px;
+    }
+
+    .carousel-item {
+        height: 300px;
+    }
+    .book_grid_container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-column-gap: 14px;
+        grid-row-gap: 14px;
+    }
+    .card-container {
+        height: 215px !important;
+    }
 }

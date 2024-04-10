@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::orderBy('created_at', 'desc')->take(10)->get();
-        return view('home', compact("books"));
+        $books = Book::orderBy('created_at', 'desc')->take(6)->get();
+        $categories = Category::orderBy('created_at', 'desc')->take(5)->get();
+        return view('home', compact("books", "categories"));
     }
 
     public function search(Request $request)
