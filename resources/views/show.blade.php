@@ -10,8 +10,8 @@
                         <li class="breadcrumb-item active" aria-current="page">{{ $book->title }}</li>
                     </ol>
                 </nav>
-                <div class="d-flex gap-3 mb-3">
-                    <div class="card w-50 rounded-sm bg-white p-2">
+                <div class="row mb-3">
+                    <div class="card col-12 col-md-6 rounded-sm bg-white p-2">
                         <div class="card-body">
                             <div id="profile_cover" class="mb-3 d-flex flex-column align-items-center">
                                 <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
@@ -112,58 +112,40 @@
                             @endguest
                         </div>
                     </div>
-                    <div class="card w-50 rounded-sm bg-white p-2">
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <div>
-                                <p class="mb-2 mt-2 fs-4 fw-semibold text-primary">
-                                    <i class="bi bi-blockquote-right me-1"></i>
-                                    Book Description
-                                </p>
-                                <p id="description" class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3"
-                                    style="text-align:justify;">
-                                    {{ $book->description }}
-                                </p>
-                                <p class="fs-4 mb-3 fw-semibold text-primary">
-                                    <i class="bi bi-calendar3 me-1"></i>
-                                    Borrowing Detail
-                                </p>
-                                <p class="fs-6 mb-2">
-                                    <i class="bi bi-clock"></i>
-                                    Duration
-                                </p>
-                                <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3">
-                                    {{ $setting->borrowing_duration . ' days' }}</p>
+                    <div class="ps-0 ps-md-3 mt-3 mt-md-0 col-12 col-md-6">
+                        <div class="card rounded-sm bg-white p-2 h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <p class="mb-2 mt-2 fs-4 fw-semibold text-primary">
+                                        <i class="bi bi-blockquote-right me-1"></i>
+                                        Book Description
+                                    </p>
+                                    <p id="description" class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3"
+                                        style="text-align:justify;">
+                                        {{ $book->description }}
+                                    </p>
+                                    <p class="fs-4 mb-3 fw-semibold text-primary">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        Borrowing Detail
+                                    </p>
+                                    <p class="fs-6 mb-2">
+                                        <i class="bi bi-clock"></i>
+                                        Duration
+                                    </p>
+                                    <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3">
+                                        {{ $setting->borrowing_duration . ' days' }}</p>
 
-                                <p class="fs-6 mb-2">
-                                    <i class="bi bi-hourglass-bottom"></i>
-                                    Fine
-                                </p>
-                                <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3">
-                                    {{ $setting->fine_rate . ' Kyats per day.' }}
-                                </p>
+                                    <p class="fs-6 mb-2">
+                                        <i class="bi bi-hourglass-bottom"></i>
+                                        Fine
+                                    </p>
+                                    <p class="fs-6 fw-normal bg-light border rounded px-3 py-2 mb-3">
+                                        {{ $setting->fine_rate . ' Kyats per day.' }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login First</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    You need to login first.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="{{ route('login') }}" class="btn btn-primary">
-                        Login
-                    </a>
                 </div>
             </div>
         </div>

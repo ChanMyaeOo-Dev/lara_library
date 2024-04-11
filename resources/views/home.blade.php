@@ -112,21 +112,12 @@
 
             </div>
             <div class="col-12 col-md-3 px-0 ps-md-3 mt-3 mt-md-0">
-                <div class="card bg-white p-2 mb-3">
-                    <div class=" card-body">
-                        @auth
-                            {{-- <div class="d-flex align-items-center gap-3 mb-5">
-                                <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
-                                    class="rounded-4 object-fit-cover" style="width:50px;height:50px;">
-                                <div>
-                                    <p class="mb-0 text-black fs-5">{{ Auth::user()->name }}</p>
-                                    <p class="mb-0 text-dark fs-6">{{ Auth::user()->roll_number }}</p>
-                                </div>
-                            </div> --}}
-
+                @auth
+                    <div class="card bg-white p-2 mb-3">
+                        <div class=" card-body">
                             {{-- Reading List --}}
                             <div class="mb-3 px-1 profile_card_item">
-                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                                <a href="{{ route('student.show', Auth::user()->roll_number) }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="mb-0 text-dark">
                                             <i class="bi bi-book me-1"></i>
@@ -143,7 +134,7 @@
 
                             {{-- Wish List --}}
                             <div class="mb-3 px-1 profile_card_item">
-                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                                <a href="{{ route('wishlists.index') }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="mb-0 text-dark">
                                             <i class="bi bi-heart me-1"></i>
@@ -159,8 +150,8 @@
                             </div>
 
                             {{-- Bookmark --}}
-                            <div class="mb-3 px-1 profile_card_item">
-                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                            <div class="mb-4 px-1 profile_card_item">
+                                <a href="{{ route('bookmarks.index') }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="mb-0 text-dark">
                                             <i class="bi bi-bookmark me-1"></i>
@@ -175,28 +166,13 @@
                                 </a>
                             </div>
 
-                            {{-- Setting --}}
-                            <div class="mb-4 px-1 profile_card_item">
-                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 text-dark">
-                                            <i class="bi bi-gear me-1"></i>
-                                            Setting
-                                        </p>
-                                        <p class="mb-0 text-dark">
-                                            <i class="bi bi-chevron-right small ms-1"></i>
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <button class="btn btn-primary w-100">
-                                <i class="bi bi-pencil-square me-1"></i>
+                            <a href="{{ route('student.show', Auth::user()->roll_number) }}" class="btn btn-primary w-100">
+                                <i class="bi bi-person-circle me-1"></i>
                                 Profile
-                            </button>
-                        @endauth
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endauth
                 <div class="card bg-white p-2 mb-3">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">
@@ -215,7 +191,7 @@
                                 <a href="{{ route('text-books.index') }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="mb-0 text-dark">
-                                            <i class="bi bi-book me-1"></i>
+                                            <i class="bi bi-app-indicator me-1"></i>
                                             {{ $category->title }}
                                         </p>
                                         <i class="bi bi-chevron-right text-dark small"></i>
@@ -225,6 +201,39 @@
                         @endforeach
                     </div>
                 </div>
+
+                <div class="card bg-white p-2 mb-3">
+                    <div class="card-body">
+                        <div class="mb-1 px-1 profile_card_item">
+                            <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="mb-0 text-black fw-bold">Popular</p>
+                                    <p class="mb-0 text-dark">
+                                        <span class="badge rounded-pill text-bg-primary">{{ count($categories) }}</span>
+                                        <i class="bi bi-chevron-right small ms-1"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        @foreach ($popular_books as $popular_book)
+                            <div class="mt-3 px-1 profile_card_item">
+                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ asset('storage/' . $popular_book->book_image) }}"
+                                                class="object-fit-cover rounded me-2" style="width: 35px;height:35px;">
+                                            <p class="mb-0 text-dark">
+                                                {{ Str::words($popular_book->title, 2, '...') }}
+                                            </p>
+                                        </div>
+                                        <i class="bi bi-chevron-right text-dark small"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
             </div>
 
         </div>

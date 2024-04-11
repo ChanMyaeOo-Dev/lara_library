@@ -122,6 +122,10 @@ select,
     width: 100%;
 }
 
+.password_input:focus-visible {
+    outline: none !important;
+}
+
 .search_input:focus-visible {
     outline: none !important;
 }
@@ -220,7 +224,9 @@ select,
     rotate: 27deg;
     filter: blur(5px) brightness(60%);
 }
-
+.animated {
+    width: 100%;
+}
 // Card Animation end
 
 @media (min-width: 768px) {
@@ -249,5 +255,8 @@ select,
     }
     .card-container {
         height: 215px !important;
+    }
+    .animated {
+        width: 30%;
     }
 }

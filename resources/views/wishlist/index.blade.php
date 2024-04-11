@@ -7,10 +7,10 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Bookmarks</li>
+                        <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
                     </ol>
                 </nav>
-                @if (count(Auth::user()->bookmarks) <= 0)
+                @if (count(Auth::user()->wishlists) <= 0)
                     <div class="d-flex  align-items-center justify-content-between flex-column">
                         <svg class="animated" id="freepik_stories-400-error-bad-request" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 500 500" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -478,36 +478,49 @@
                             </defs>
                         </svg>
                         <p class="fs-4 ps-1 fw-semibold text-primary">
-                            Oh! You Have No Bookmark.
+                            Oh! You Have No Wishlist.
                         </p>
                     </div>
                 @else
                     <div class="card rounded-sm bg-white">
                         <div class="card-body">
                             <p class="mb-3 mt-2 fs-4 ps-1 fw-semibold text-primary">
-                                Bookmarks
+                                Wishlist
                             </p>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Book <i class="ms-2 small bi bi-arrow-down-up text-black-50"></i></th>
+                                        <th>Book</th>
+                                        <th>Status</th>
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($bookmarks as $bookmark)
+                                    @foreach ($wishlists as $wishlist)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="{{ asset('storage/' . $bookmark->book->book_image) }}"
+                                                    <img src="{{ asset('storage/' . $wishlist->book->book_image) }}"
                                                         class="me-2 rounded border border-1"
                                                         style="width: 45px;height:45px;">
-                                                    <span>{{ $bookmark->book->title }}</span>
+                                                    <span>{{ $wishlist->book->title }}</span>
                                                 </div>
                                             </td>
+
+                                            <td>
+                                                @if ($wishlist->book->qty <= 0)
+                                                    <p class="mb-0 text-black-50">Currently Unavailable</p>
+                                                @else
+                                                    <p class="mb-0 text-success">
+                                                        <i class="bi bi-check-circle-fill me-1"></i>
+                                                        Instock
+                                                    </p>
+                                                @endif
+                                            </td>
+
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-end">
-                                                    <form action="{{ route('bookmarks.destroy', $bookmark->id) }}"
+                                                    <form action="{{ route('wishlists.destroy', $wishlist->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('delete')
@@ -522,13 +535,11 @@
                                 </tbody>
                             </table>
                             <div class="container mt-3">
-                                {{ $bookmarks->links() }}
+                                {{ $wishlists->links() }}
                             </div>
                         </div>
                     </div>
                 @endif
-
-
             </div>
         </div>
     </div>

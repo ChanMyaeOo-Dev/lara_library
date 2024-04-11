@@ -55,6 +55,12 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class)->where('is_returned', '=', false);
     }
 
+    public function userPreviousTransactions()
+    {
+        return $this->hasMany(Transaction::class)->where('is_returned', '=', true);
+    }
+
+
     public function bookmarks()
     {
         return $this->hasMany(BookMark::class);

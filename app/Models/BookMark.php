@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class BookMark extends Model
 {
     use HasFactory;
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

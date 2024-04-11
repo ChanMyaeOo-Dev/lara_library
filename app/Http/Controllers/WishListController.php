@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWishListRequest;
 use App\Http\Requests\UpdateWishListRequest;
 use App\Models\WishList;
+use Illuminate\Support\Facades\Auth;
 
 class WishListController extends Controller
 {
     public function index()
     {
-        $wishlists = WishList::latest()->get();
+        $wishlists = WishList::where("user_id", Auth::id())->paginate(10);
         return view('wishlist.index', compact('wishlists'));
     }
 

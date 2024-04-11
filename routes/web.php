@@ -4,9 +4,11 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TextBookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -46,5 +48,8 @@ Route::middleware("auth")->group(
     function () {
         Route::resource("bookmarks", BookMarkController::class);
         Route::resource("wishlists", WishListController::class);
+        Route::resource("student", StudentController::class);
+        Route::get("/change-password", [ChangePasswordController::class, "index"])->name("change-password");
+        Route::put("/change-password", [ChangePasswordController::class, "update"])->name("change-password");
     }
 );

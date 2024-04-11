@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WishList extends Model
 {
     use HasFactory;
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

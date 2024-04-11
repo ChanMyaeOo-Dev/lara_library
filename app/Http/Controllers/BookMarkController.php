@@ -10,7 +10,7 @@ class BookMarkController extends Controller
 {
     public function index()
     {
-        $bookmarks = Bookmark::latest()->get();
+        $bookmarks = Bookmark::where("user_id", Auth::id())->paginate(10);
         return view('bookmark.index', compact('bookmarks'));
     }
     public function create()
@@ -45,7 +45,6 @@ class BookMarkController extends Controller
     }
     public function destroy(Bookmark $bookmark)
     {
-        dd($bookmark->id);
         $bookmark->delete();
         return redirect()->back()->with("message", "Successfully deleted to bookmark.");
     }
