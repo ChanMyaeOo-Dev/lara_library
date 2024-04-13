@@ -77,7 +77,7 @@
                     </div>
                     <div class="book_grid_container">
                         @foreach ($project_books as $book)
-                            <a href="{{ route('text-books.show', $book->slug) }}">
+                            <a href="{{ route('project-book', $book->slug) }}">
                                 <div class="card-container border border-1">
                                     <div class="animate_card">
                                         <div class="img-content">

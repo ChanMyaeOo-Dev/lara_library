@@ -43,13 +43,20 @@ class HomeController extends Controller
         $query = $request->input('query');
 
         $books = Book::where('title', 'like', "%$query%")->get();
+        $project_books = ProjectBook::where('title', 'like', "%$query%")->get();
 
-        return response()->json($books);
+        $mergedResults = $books->merge($project_books);
+
+        return response()->json($mergedResults);
     }
 
     public function projectBookShow($slug)
     {
         $book = ProjectBook::where('slug', $slug)->firstOrFail();
-        return view('project_book_show', compact("book"));
+        $related_books = ProjectBook::where('category', $book->category)->take(6)->get();
+        if (count($related_books) < 4) {
+            $related_books = ProjectBook::latest()->take(6)->get();
+        }
+        return view('project_book_show', compact("book", "related_books"));
     }
 }

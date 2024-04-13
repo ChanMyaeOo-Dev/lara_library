@@ -137,21 +137,33 @@
                     // Clear previous suggestions
                     suggestions.innerHTML = '';
                     books.forEach(book => {
-                        const div = document.createElement('div');
-                        div.classList.add('d-flex', 'align-items-center', 'gap-2', 'mb-3');
-                        const img = document.createElement('img');
-                        const img_link = '{{ asset('storage/') }}' + '/' + book.book_image;
-                        img.src = img_link;
-                        img.classList.add('search_book_img', 'rounded');
                         const a = document.createElement('a');
                         var baseUrl = "{{ route('text-books.show', '') }}";
+                        if (book.author == null) {
+                            img_link = '{{ asset('storage/') }}' + '/' + book.cover_image;
+                            baseUrl = "{{ route('project-book', '') }}";
+                        }
                         a.href = baseUrl + '/' + book.slug;
-                        a.textContent = book.title;
                         a.classList.add('text-decoration-none', 'text-dark');
+
+                        const div = document.createElement('div');
+                        div.classList.add('d-flex', 'align-items-center', 'gap-2', 'mb-3');
+
+                        const img = document.createElement('img');
+                        img.src = '{{ asset('storage/') }}' + '/' + (book.author ? book
+                            .book_image : book.cover_image);
+                        img.classList.add('search_book_img', 'rounded');
+
+                        const titleSpan = document.createElement('span');
+                        titleSpan.textContent = book.title;
+                        titleSpan.classList.add('text-dark');
+
                         div.appendChild(img);
-                        div.appendChild(a);
-                        suggestions.appendChild(div);
+                        div.appendChild(titleSpan);
+                        a.appendChild(div);
+                        suggestions.appendChild(a);
                     });
+
                     suggestions.classList.add('show');
                 })
                 .catch(error => {
