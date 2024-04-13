@@ -70,7 +70,7 @@
                         <p class="mb-0 fs-5 text-black fw-semibold">
                             Project Books
                         </p>
-                        <a href="{{ route('/') }}" class=" nav-link ">
+                        <a href="{{ route('project-books') }}" class=" nav-link ">
                             See All
                             <i class="bi bi-chevron-right ms-1 small"></i>
                         </a>
@@ -172,7 +172,7 @@
                         </div>
                         @foreach ($categories as $category)
                             <div class="mt-3 px-1 profile_card_item">
-                                <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                                <a href="{{ route('books', $category->slug) }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="mb-0 text-dark">
                                             <i class="bi bi-app-indicator me-1"></i>

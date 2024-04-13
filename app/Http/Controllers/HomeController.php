@@ -6,7 +6,6 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\ProjectBook;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -58,5 +57,24 @@ class HomeController extends Controller
             $related_books = ProjectBook::latest()->take(6)->get();
         }
         return view('project_book_show', compact("book", "related_books"));
+    }
+    public function books($slug)
+    {
+        $categories = Category::all();
+        $books = "";
+        if ($slug == "all") {
+            $books = Book::paginate(18);
+        } else {
+            $category = Category::where("slug", $slug)->firstOrFail();
+            $books = Book::where("category_id", $category->id)->paginate(18);
+        }
+        return view('books', compact("categories", "books"));
+    }
+
+
+    public function project_books()
+    {
+        $books = ProjectBook::paginate(12);
+        return view('project_books', compact("books"));
     }
 }

@@ -32,7 +32,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name("/");
 Auth::routes();
 Route::get('/books/search', [HomeController::class, "search"])->name('books.search');
-Route::get('project-book/{slug}', [HomeController::class, "projectBookShow"])->name("project-book");
+Route::get('/project-book/{slug}', [HomeController::class, "projectBookShow"])->name("project-book");
+Route::get('/project_books', [HomeController::class, "project_books"])->name("project-books");
+Route::get('/books/{slug}', [HomeController::class, "books"])->name("books");
 
 Route::middleware("auth")->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");

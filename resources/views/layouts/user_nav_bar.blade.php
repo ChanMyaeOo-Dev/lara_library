@@ -30,14 +30,13 @@
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item pe-md-3">
-                    <a class="nav-link" href="{{ route('login') }}">
+                <li class="nav-item pe-md-3 {{ request()->routeIs('books*') ? 'nav_active' : '' }}">
+                    <a class="nav-link" href="{{ route('books', 'all') }}">
                         Text Books
                     </a>
                 </li>
-
-                <li class="nav-item pe-md-3">
-                    <a class="nav-link" href="{{ route('login') }}">
+                <li class="nav-item pe-md-3 {{ request()->routeIs('project-books*') ? 'nav_active' : '' }}">
+                    <a class="nav-link" href="{{ route('project-books') }}">
                         Project Books
                     </a>
                 </li>

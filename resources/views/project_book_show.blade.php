@@ -34,16 +34,16 @@
                             </div>
 
                             @auth
-                                <button type="button" class="btn p-2 btn-outline-primary w-100">
+                                <a href="{{ $book->link }}" type="button" class="btn lg_btn p-2 btn-outline-primary w-100">
                                     <i class="bi bi-download me-1"></i>
                                     Download
-                                </button>
+                                </a>
                             @endauth
                             @guest
-                                <button type="button" class="btn p-2 btn-outline-primary w-100">
+                                <a href="{{ route('login') }}" type="button" class="btn lg_btn p-2 btn-outline-primary w-100">
                                     <i class="bi bi-download me-1"></i>
                                     LogIn To Download
-                                </button>
+                                </a>
                             @endguest
                         </div>
                     </div>

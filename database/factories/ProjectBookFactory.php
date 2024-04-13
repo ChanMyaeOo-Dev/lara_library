@@ -26,7 +26,7 @@ class ProjectBookFactory extends Factory
             'excerpt' => Str::excerpt($description),
             'category' => "Software Engineering",
             'cover_image' => "default_book_image.jpg",
-            'link' => "link",
+            'link' => "https://drive.google.com/file/d/1S79M0CN99ykd-pORT-WacKKoUtbshLgj/view?usp=sharing",
         ];
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("excerpt");
             $table->string("category");
             $table->string("cover_image");
-            $table->string("link");
+            $table->longText("link");
             $table->timestamps();
         });
     }
