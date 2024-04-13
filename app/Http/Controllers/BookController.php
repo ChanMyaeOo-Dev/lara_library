@@ -23,7 +23,6 @@ class BookController extends Controller
         return view("admin.book.index", compact("books"));
     }
 
-
     public function create()
     {
         $categories = Category::all();
@@ -57,9 +56,8 @@ class BookController extends Controller
 
     public function show($slug)
     {
-        $book = Book::where('slug', $slug)->first();
-        $setting = Setting::first();
-        return view("admin.book.show", compact("book", "setting"));
+        $book = Book::where('slug', $slug)->firstOrFail();
+        return view("admin.book.show", compact("book"));
     }
 
     public function edit(Book $book)

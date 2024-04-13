@@ -1,12 +1,29 @@
 <nav id="top_nav_bar" class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
-            <img src="{{ asset('storage/logo_landscape.png') }}" class="nav_logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <i class="bi bi-list text-dark"></i>
-        </button>
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand fw-bold text-primary me-3" href="{{ url('/') }}">
+                <img src="{{ asset('storage/logo_landscape.png') }}" class="nav_logo">
+            </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="d-none d-md-block bg-white border border-1 text-start text-dark rounded"
+                id="search_custom_btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i class="bi bi-search me-1"></i>
+                Search
+            </button>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <button type="button"
+                class="navbar-toggler d-block d-md-none me-2 d-flex align-items-center justify-content-center"
+                data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i class="bi bi-search text-dark"></i>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="{{ __('Toggle navigation') }}">
+                <i class="bi bi-list text-dark"></i>
+            </button>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
@@ -74,3 +91,79 @@
         </div>
     </div>
 </nav>
+
+<!--Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="searchModalLabel">Search Books</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" style="height: 650px;">
+                <div class="dropdown">
+                    <div class="border border-1 rounded d-flex align-items-center bg-white px-3 py-2 mb-3">
+                        <i class="bi bi-search me-2 text-black-50"></i>
+                        <input type="text" class="search_input w-100 bg-transparent border-0 rounded p-1 text-dark"
+                            id="searchInput" placeholder="Type to search for books">
+                    </div>
+                    <div class="dropdown-menu custom-dropdown-menu dropdown-menu-right p-3 bg-white mb-4"
+                        id="suggestions" aria-labelledby="searchInput">
+                        <!-- Search results -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+
+        searchInput.addEventListener('input', function(event) {
+            const inputValue = event.target.value.trim();
+
+            if (inputValue === '') {
+                suggestions.innerHTML = '';
+                suggestions.classList.remove('show');
+                return;
+            }
+
+            axios.get(`/books/search?query=${inputValue}`)
+                .then(response => {
+                    const books = response.data;
+                    // Clear previous suggestions
+                    suggestions.innerHTML = '';
+                    books.forEach(book => {
+                        const div = document.createElement('div');
+                        div.classList.add('d-flex', 'align-items-center', 'gap-2', 'mb-3');
+                        const img = document.createElement('img');
+                        const img_link = '{{ asset('storage/') }}' + '/' + book.book_image;
+                        img.src = img_link;
+                        img.classList.add('search_book_img', 'rounded');
+                        const a = document.createElement('a');
+                        var baseUrl = "{{ route('text-books.show', '') }}";
+                        a.href = baseUrl + '/' + book.slug;
+                        a.textContent = book.title;
+                        a.classList.add('text-decoration-none', 'text-dark');
+                        div.appendChild(img);
+                        div.appendChild(a);
+                        suggestions.appendChild(div);
+                    });
+                    suggestions.classList.add('show');
+                })
+                .catch(error => {
+                    console.error('Error fetching books:', error);
+                });
+        });
+
+        // Hide suggestions when clicking outside the dropdown menu
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropdown-toggle')) {
+                suggestions.classList.remove('show');
+            }
+        });
+    });
+</script>

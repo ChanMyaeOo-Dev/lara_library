@@ -23,10 +23,7 @@ class DashboardController extends Controller
         $transactionCount = Transaction::count();
         $categoryCount = Category::count();
 
-        $categoryBookCount = Book::join('categories', 'books.category_id', '=', 'categories.id')
-            ->select('categories.title', DB::raw('count(*) as book_count'))
-            ->groupBy('categories.title')
-            ->pluck('book_count', 'title');
+        $categoryBookCount = Category::withCount('books')->pluck('books_count', 'title');
 
         $transactionCountsInLastSixMonth = [];
         for ($i = 0; $i < 6; $i++) {

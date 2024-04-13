@@ -37,7 +37,7 @@ class TextBookController extends Controller
 
     public function show($slug)
     {
-        $book = Book::where('slug', $slug)->first();
+        $book = Book::where('slug', $slug)->firstOrFail();
         if (Auth::user() == null) {
             return view('show', compact("book"));
         }

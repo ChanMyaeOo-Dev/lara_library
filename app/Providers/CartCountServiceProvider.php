@@ -24,9 +24,11 @@ class CartCountServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('*', function ($view) {
+        view()->composer("*", function ($view) {
             $cartCount = Cart::count();
             $view->with('cartCount', $cartCount);
         });
+
+        // view()->share("app_name", "Laravel App");
     }
 }

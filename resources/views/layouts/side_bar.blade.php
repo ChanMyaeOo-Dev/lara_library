@@ -27,6 +27,14 @@
             <p class="mb-0 text-uppercase">Books</p>
         </div>
     </a>
+    {{-- Project Book --}}
+    <a href="{{ route('project-books.index') }}" class="text-decoration-none">
+        <div
+            class="sidebar_item {{ request()->routeIs('project-books*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+            <i class="bi bi-file-pdf me-2"></i>
+            <p class="mb-0 text-uppercase">Project Books</p>
+        </div>
+    </a>
     {{-- User --}}
     <a href="{{ route('users.index') }}" class="text-decoration-none">
         <div

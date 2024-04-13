@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\ProjectBook;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -53,6 +54,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Book::factory(30)->create();
+        Book::factory(100)->create();
+        ProjectBook::factory(30)->create();
     }
 }

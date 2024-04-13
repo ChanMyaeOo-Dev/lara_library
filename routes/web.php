@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectBookController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TextBookController;
@@ -31,11 +32,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name("/");
 Auth::routes();
 Route::get('/books/search', [HomeController::class, "search"])->name('books.search');
+Route::get('project-book/{slug}', [HomeController::class, "projectBookShow"])->name("project-book");
 
 Route::middleware("auth")->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
     Route::resource("category", CategoryController::class);
     Route::resource("books", BookController::class);
+    Route::resource("project-books", ProjectBookController::class);
     Route::resource("transactions", TransactionController::class);
     Route::resource("users", UserController::class);
     Route::resource("settings", SettingController::class);
