@@ -30,7 +30,7 @@
                 <div class="card bg-white p-2 mb-3 overflow-scroll h-100">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">
-                            <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                            <a href="{{ route('books', 'all') }}" class="text-decoration-none">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <p class="mb-0 text-black fw-bold">Categories</p>
                                     <p class="mb-0 text-dark">

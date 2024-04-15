@@ -38,22 +38,27 @@ Route::get('/books/{slug}', [HomeController::class, "books"])->name("books");
 
 Route::middleware("auth")->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
-    Route::resource("category", CategoryController::class);
+    Route::resource("category", CategoryController::class)->except(['create', 'show']);
     Route::resource("books", BookController::class);
     Route::resource("project-books", ProjectBookController::class);
     Route::resource("transactions", TransactionController::class);
     Route::resource("users", UserController::class);
     Route::resource("settings", SettingController::class);
-    Route::resource("carts", CartController::class);
+    Route::resource("carts", CartController::class)->except(['create', 'show', 'edit', 'update']);
 });
 
 Route::resource("text-books", TextBookController::class);
 
 Route::middleware("auth")->group(
     function () {
-        Route::resource("bookmarks", BookMarkController::class);
-        Route::resource("wishlists", WishListController::class);
-        Route::resource("student", StudentController::class);
+        Route::resource("bookmarks", BookMarkController::class)->except(['create', 'show', 'edit', 'update']);
+        Route::resource("wishlists", WishListController::class)->except(['create', 'show', 'edit', 'update']);
+        Route::resource("student", StudentController::class)->except([
+            'index',
+            'create',
+            'store',
+            "destroy"
+        ]);;
         Route::get("/change-password", [ChangePasswordController::class, "index"])->name("change-password");
         Route::put("/change-password", [ChangePasswordController::class, "update"])->name("change-password");
     }

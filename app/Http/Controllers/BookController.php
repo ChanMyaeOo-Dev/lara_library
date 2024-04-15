@@ -6,7 +6,6 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -31,6 +30,14 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+            'qty' => 'required|integer|min:1',
+        ]);
+
         $book = new Book();
 
         if ($request->hasFile('book_image')) {

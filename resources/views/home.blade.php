@@ -49,8 +49,8 @@
                                 <div class="card-container border border-1">
                                     <div class="animate_card">
                                         <div class="img-content">
-                                            <img
-                                                src="https://img.freepik.com/free-vector/flat-world-book-day-illustration_23-2149311132.jpg?t=st=1712769335~exp=1712772935~hmac=44a555789e2349be9036ac8c578b5b9bde493c34a9b24932260044d8bef2ab7c&w=1480">
+                                            <img src="https://i.pinimg.com/474x/c4/45/32/c44532f99fb954b24ae8e8aa14d781c9.jpg"
+                                                class="">
                                             {{-- <img src="{{ asset('storage/' . $book->book_image) }}" class=""> --}}
                                         </div>
                                         <div class="content">

@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'roll_number' => ['required', 'string', 'max:255'],
+            'roll_number' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'max:255', 'unique:users'],
             'role' => "required"
@@ -66,7 +66,11 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'roll_number' => ['required', 'string', 'max:255'],
+            // 'roll_number' => ['required', 'string', 'max:255'],
+            'roll_number' => [
+                'required', 'string', 'max:255',
+                Rule::unique('users')->ignore($user->id)
+            ],
             'email' => [
                 'required', 'string', 'email', 'max:255',
                 Rule::unique('users')->ignore($user->id)
