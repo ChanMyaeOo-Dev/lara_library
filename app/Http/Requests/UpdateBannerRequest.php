@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTextBookRequest extends FormRequest
+class UpdateBannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,8 @@ class StoreTextBookRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            "image" => "image|mimes:png,jpg,jpeg",
+        ];
     }
 }

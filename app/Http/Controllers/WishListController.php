@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWishListRequest;
-use App\Http\Requests\UpdateWishListRequest;
 use App\Models\WishList;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class WishListController extends Controller
@@ -13,16 +13,6 @@ class WishListController extends Controller
     {
         $wishlists = WishList::where("user_id", Auth::id())->paginate(10);
         return view('wishlist.index', compact('wishlists'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
     public function store(StoreWishListRequest $request)
     {
@@ -36,42 +26,9 @@ class WishListController extends Controller
         $wishlist->save();
         return redirect()->back()->with("message", "Successfully added to wish list.");
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\WishList  $wishList
-     * @return \Illuminate\Http\Response
-     */
-    public function show(WishList $wishList)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\WishList  $wishList
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(WishList $wishList)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateWishListRequest  $request
-     * @param  \App\Models\WishList  $wishList
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateWishListRequest $request, WishList $wishList)
-    {
-        //
-    }
-    public function destroy(WishList $wishlist)
-    {
+        $wishlist = WishList::findOrFail($request->id);
         $wishlist->delete();
         return redirect()->back()->with("message", "Successfully remove from wishlist.");
     }

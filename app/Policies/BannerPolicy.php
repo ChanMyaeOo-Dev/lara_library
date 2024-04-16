@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\TextBook;
+use App\Models\Banner;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TextBookPolicy
+class BannerPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class TextBookPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TextBook  $textBook
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TextBook $textBook)
+    public function view(User $user, Banner $banner)
     {
         //
     }
@@ -48,10 +48,10 @@ class TextBookPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TextBook  $textBook
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TextBook $textBook)
+    public function update(User $user, Banner $banner)
     {
         //
     }
@@ -60,10 +60,10 @@ class TextBookPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TextBook  $textBook
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, TextBook $textBook)
+    public function delete(User $user, Banner $banner)
     {
         //
     }
@@ -72,10 +72,10 @@ class TextBookPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TextBook  $textBook
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, TextBook $textBook)
+    public function restore(User $user, Banner $banner)
     {
         //
     }
@@ -84,10 +84,10 @@ class TextBookPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TextBook  $textBook
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, TextBook $textBook)
+    public function forceDelete(User $user, Banner $banner)
     {
         //
     }

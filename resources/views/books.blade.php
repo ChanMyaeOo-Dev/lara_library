@@ -6,7 +6,7 @@
             <div class="col-12 col-md-9 px-0">
                 <div class="book_grid_container">
                     @foreach ($books as $book)
-                        <a href="{{ route('text-books.show', $book->slug) }}">
+                        <a href="{{ route('book', $book->slug) }}">
                             <div class="card-container border border-1" style="height: 300px;">
                                 <div class="animate_card">
                                     <div class="img-content">
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-3 px-0 ps-md-3">
-                <div class="card bg-white p-2 mb-3 overflow-scroll h-100">
+                <div class="card bg-white p-2 mb-3 overflow-auto h-100">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">
                             <a href="{{ route('books', 'all') }}" class="text-decoration-none">

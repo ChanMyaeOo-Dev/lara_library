@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\CartController;
@@ -28,13 +29,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::fallback(function () {
+    return view('error.error_404');
+});
+
 
 Route::get('/', [HomeController::class, 'index'])->name("/");
 Auth::routes();
 Route::get('/books/search', [HomeController::class, "search"])->name('books.search');
+Route::get('/book/{slug}', [HomeController::class, "bookShow"])->name("book");
 Route::get('/project-book/{slug}', [HomeController::class, "projectBookShow"])->name("project-book");
 Route::get('/project_books', [HomeController::class, "project_books"])->name("project-books");
 Route::get('/books/{slug}', [HomeController::class, "books"])->name("books");
+Route::get('/banner_detail/{id}', [HomeController::class, "banner_detail"])->name("banner_detail");
 
 Route::middleware("auth")->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
@@ -44,21 +51,29 @@ Route::middleware("auth")->prefix("admin")->group(function () {
     Route::resource("transactions", TransactionController::class);
     Route::resource("users", UserController::class);
     Route::resource("settings", SettingController::class);
+    Route::resource("banners", BannerController::class);
     Route::resource("carts", CartController::class)->except(['create', 'show', 'edit', 'update']);
 });
 
-Route::resource("text-books", TextBookController::class);
+// Route::resource("text-books", TextBookController::class);
 
 Route::middleware("auth")->group(
     function () {
-        Route::resource("bookmarks", BookMarkController::class)->except(['create', 'show', 'edit', 'update']);
-        Route::resource("wishlists", WishListController::class)->except(['create', 'show', 'edit', 'update']);
-        Route::resource("student", StudentController::class)->except([
-            'index',
-            'create',
-            'store',
-            "destroy"
-        ]);;
+        // BookMark
+        Route::get("/bookmarks", [BookMarkController::class, "index"])->name("bookmarks.index");
+        Route::post("/bookmarks", [BookMarkController::class, "store"])->name("bookmarks.store");
+        Route::delete("/bookmarks/{id}", [BookMarkController::class, "destroy"])->name("bookmarks.destroy");
+        // WishList
+
+        Route::get("/wishlists", [WishListController::class, "index"])->name("wishlists.index");
+        Route::post("/wishlists", [WishListController::class, "store"])->name("wishlists.store");
+        Route::delete("/wishlists/{id}", [WishListController::class, "destroy"])->name("wishlists.destroy");
+
+        // Student
+        Route::get("/student/{roll_number}", [StudentController::class, "show"])->name("student.show");
+        Route::get("/student-edit/{roll_number}", [StudentController::class, "edit"])->name("student.edit");
+        Route::put("/student", [StudentController::class, "update"])->name("student.update");
+
         Route::get("/change-password", [ChangePasswordController::class, "index"])->name("change-password");
         Route::put("/change-password", [ChangePasswordController::class, "update"])->name("change-password");
     }

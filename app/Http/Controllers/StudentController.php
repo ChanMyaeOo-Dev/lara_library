@@ -12,18 +12,6 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-    public function create()
-    {
-        //
-    }
-    public function store(Request $request)
-    {
-        //
-    }
     public function show($roll_number)
     {
         $user = User::where('roll_number', $roll_number)->first();
@@ -31,7 +19,7 @@ class StudentController extends Controller
     }
     public function edit($roll_number)
     {
-        $user = User::where('roll_number', $roll_number)->first();
+        $user = User::where("roll_number", $roll_number)->firstOrFail();
         return view('profile_edit', compact('user'));
     }
     public function update(Request $request)
@@ -76,9 +64,5 @@ class StudentController extends Controller
         $user->password = Hash::make("password");
         $user->update();
         return redirect()->route('/')->with("message", "Successfully updated.");
-    }
-    public function destroy(User $user)
-    {
-        //
     }
 }

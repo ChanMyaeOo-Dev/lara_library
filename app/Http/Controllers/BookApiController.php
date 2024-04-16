@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class BookApiController extends Controller
     public function index()
     {
         $books = Book::latest()->get();
-        return response()->json($books);
+        return BookResource::collection($books);
     }
 
     /**
@@ -48,29 +49,14 @@ class BookApiController extends Controller
         $book->save();
         return response()->json($book);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $book = Book::find($id);
         if ($book == null) {
             return response()->json(["message" => "Book not found."], 404);
         }
-        return response()->json($book);
+        return new BookResource($book);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -115,7 +101,7 @@ class BookApiController extends Controller
         }
 
         $book->update();
-        return response()->json($book);
+        return new BookResource($book);
     }
 
     /**

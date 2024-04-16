@@ -4,40 +4,40 @@
     <div class="container pb-4">
         <div class="row min-vh-100 w-100 mx-0" id="app_layout">
             <div class="col-12 col-md-9 px-0">
-                <div id="carouselExampleIndicators" class="carousel slide mb-4">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+
+                <div class="container mb-4 px-0">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            @foreach ($banners as $key => $slider)
+                                <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    data-bs-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"
+                                    aria-current="{{ $key == 0 ? 'true' : 'false' }}"
+                                    aria-label="Slide {{ $key }}"></button>
+                            @endforeach
+                        </div>
+                        <div class="carousel-inner rounded">
+                            @foreach ($banners as $key => $slider)
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <a href="{{ route('banner_detail', $slider->id) }}" class="">
+                                        <img src="{{ asset('Storage/' . $slider->image) }}" class="d-block w-100 rounded"
+                                            alt="{{ $slider->description }}">
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item rounded active">
-                            <img src="https://img.freepik.com/free-photo/calathea-orbifolia-green-natural-leaves-background_53876-129662.jpg?t=st=1712769177~exp=1712772777~hmac=4dd6aa80b1d05a88aaf71abbbdb289997cf82c75bdfbd3126f6d31c0e90ef6ea&w=2000"
-                                class="d-block w-100 rounded h-100 object-fit-cover" alt="...">
-                        </div>
-                        <div class="carousel-item rounded">
-                            <img src="https://img.freepik.com/free-photo/calathea-orbifolia-green-natural-leaves-background_53876-129662.jpg?t=st=1712769177~exp=1712772777~hmac=4dd6aa80b1d05a88aaf71abbbdb289997cf82c75bdfbd3126f6d31c0e90ef6ea&w=2000"
-                                class="d-block w-100 rounded h-100 object-fit-cover" alt="...">
-                        </div>
-                        <div class="carousel-item rounded">
-                            <img src="https://img.freepik.com/free-photo/calathea-orbifolia-green-natural-leaves-background_53876-129662.jpg?t=st=1712769177~exp=1712772777~hmac=4dd6aa80b1d05a88aaf71abbbdb289997cf82c75bdfbd3126f6d31c0e90ef6ea&w=2000"
-                                class="d-block w-100 rounded h-100 object-fit-cover" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
+
                 {{-- Latest Arrival --}}
                 <div class="mb-4">
                     <p class="mb-3 fs-5 text-black fw-semibold">
@@ -45,13 +45,11 @@
                     </p>
                     <div class="book_grid_container">
                         @foreach ($latest_arrival as $book)
-                            <a href="{{ route('text-books.show', $book->slug) }}">
+                            <a href="{{ route('book', $book->slug) }}">
                                 <div class="card-container border border-1">
                                     <div class="animate_card">
                                         <div class="img-content">
-                                            <img src="https://i.pinimg.com/474x/c4/45/32/c44532f99fb954b24ae8e8aa14d781c9.jpg"
-                                                class="">
-                                            {{-- <img src="{{ asset('storage/' . $book->book_image) }}" class=""> --}}
+                                            <img src="{{ asset('storage/' . $book->book_image) }}" class="">
                                         </div>
                                         <div class="content">
                                             <p class="fw-bold fs-5 mb-2">{{ Str::words($book->title, 3, '...') }}</p>
@@ -160,7 +158,7 @@
                 <div class="card bg-white p-2 mb-3">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">
-                            <a href="{{ route('text-books.index') }}" class="text-decoration-none">
+                            <a href="{{ route('books', 'all') }}" class="text-decoration-none">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <p class="mb-0 text-black fw-bold">Categories</p>
                                     <p class="mb-0 text-dark">
@@ -191,8 +189,7 @@
                         <p class="mb-1 px-1 text-black fw-bold">Popular</p>
                         @foreach ($popular_books as $popular_book)
                             <div class="mt-3 px-1 profile_card_item">
-                                <a href="{{ route('text-books.show', $popular_book->slug) }}"
-                                    class="text-decoration-none">
+                                <a href="{{ route('book', $popular_book->slug) }}" class="text-decoration-none">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('storage/' . $popular_book->book_image) }}"

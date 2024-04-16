@@ -57,6 +57,13 @@
     <p class="mb-3 text-secondary fs-6 mx-4">Library Setting</p>
 
     {{-- Setting --}}
+    <a href="{{ route('banners.index') }}" class="text-decoration-none">
+        <div
+            class="sidebar_item {{ request()->routeIs('banners*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+            <i class="bi bi-images me-2"></i>
+            <p class="mb-0 text-uppercase">Banners</p>
+        </div>
+    </a>
     <a href="{{ route('settings.index') }}" class="text-decoration-none">
         <div
             class="sidebar_item {{ request()->routeIs('settings*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">

@@ -13,10 +13,6 @@ class BookMarkController extends Controller
         $bookmarks = Bookmark::where("user_id", Auth::id())->paginate(10);
         return view('bookmark.index', compact('bookmarks'));
     }
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request)
     {
@@ -30,21 +26,9 @@ class BookMarkController extends Controller
         $bookmark->save();
         return redirect()->back()->with("message", "Successfully added to bookmark.");
     }
-    public function show(Bookmark $bookmark)
+    public function destroy(Request $request)
     {
-        //
-    }
-    public function edit(Bookmark $bookmark)
-    {
-        //
-    }
-
-    public function update(Request $request, Bookmark $bookmark)
-    {
-        //
-    }
-    public function destroy(Bookmark $bookmark)
-    {
+        $bookmark = Bookmark::findOrFail($request->id);
         $bookmark->delete();
         return redirect()->back()->with("message", "Successfully deleted to bookmark.");
     }

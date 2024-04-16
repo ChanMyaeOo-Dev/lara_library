@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\ProjectBook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -18,14 +20,9 @@ class HomeController extends Controller
     {
         // $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
+        $banners = Banner::latest()->get();
         $project_books = ProjectBook::latest()->take(6)->get();
         $latest_arrival = Book::latest()->take(6)->get();
         $categories = Category::latest()->take(6)->get();
@@ -34,7 +31,15 @@ class HomeController extends Controller
             ->orderByDesc('transactions_count')
             ->limit(5)
             ->get();
-        return view('home', compact("project_books", "latest_arrival", "categories", "popular_books"));
+        return view('home', compact("banners", "project_books", "latest_arrival", "categories", "popular_books"));
+    }
+
+    public function banner_detail($id)
+    {
+        $banner = Banner::findOrFail($id);
+        $banners = Banner::latest()->get();
+
+        return view("banner_detail", compact("banners", "banner"));
     }
 
     public function search(Request $request)
@@ -47,6 +52,18 @@ class HomeController extends Controller
         $mergedResults = $books->merge($project_books);
 
         return response()->json($mergedResults);
+    }
+
+    public function bookShow($slug)
+    {
+        $book = Book::where('slug', $slug)->firstOrFail();
+        if (Auth::user() == null) {
+            return view('show', compact("book"));
+        }
+        $user = Auth::user();
+        $bookmark = $user->bookmarks()->where('book_id', $book->id)->first();
+        $wishlist = $user->wishlists()->where('book_id', $book->id)->first();
+        return view('show', compact("book", "bookmark", "wishlist"));
     }
 
     public function projectBookShow($slug)

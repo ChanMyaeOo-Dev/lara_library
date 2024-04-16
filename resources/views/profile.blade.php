@@ -44,7 +44,7 @@
                                 </div>
 
                                 <div>
-                                    <a href="{{ route('student.edit', $user->roll_number) }}"
+                                    <a href="{{ route('student.edit', Auth::user()->roll_number) }}"
                                         class="btn lg_btn btn-outline-primary mb-2 w-100">
                                         <i class="bi bi-pencil-square "></i>
                                         Edit

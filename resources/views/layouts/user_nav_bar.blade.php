@@ -137,7 +137,7 @@
                     suggestions.innerHTML = '';
                     books.forEach(book => {
                         const a = document.createElement('a');
-                        var baseUrl = "{{ route('text-books.show', '') }}";
+                        var baseUrl = "{{ route('book', '') }}";
                         if (book.author == null) {
                             img_link = '{{ asset('storage/') }}' + '/' + book.cover_image;
                             baseUrl = "{{ route('project-book', '') }}";
