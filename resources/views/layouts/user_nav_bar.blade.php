@@ -31,12 +31,12 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item pe-md-3 {{ request()->routeIs('books*') ? 'nav_active' : '' }}">
-                    <a class="nav-link" href="{{ route('books', 'all') }}">
+                    <a class="nav-link text-nowrap" href="{{ route('books', 'all') }}">
                         Text Books
                     </a>
                 </li>
                 <li class="nav-item pe-md-3 {{ request()->routeIs('project-books*') ? 'nav_active' : '' }}">
-                    <a class="nav-link" href="{{ route('project-books') }}">
+                    <a class="nav-link text-nowrap" href="{{ route('project-books') }}">
                         Project Books
                     </a>
                 </li>
@@ -56,7 +56,7 @@
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center justify-content-center">
                             <a class="btn btn-primary" href="{{ route('login') }}">
                                 <i class="bi bi-person-circle me-1"></i>
                                 {{ __('Login') }}</a>
@@ -70,7 +70,7 @@
                                 class="me-2 border border-2 rounded-circle object-fit-cover shadow-sm">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{{ Auth::user()->name }}</span>
+                                <span>{{ Str::words(Auth::user()->name, 1, '') }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"

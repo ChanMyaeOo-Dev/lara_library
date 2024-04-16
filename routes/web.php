@@ -29,7 +29,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::fallback(function () {
-    return view('error.error_404');
+    // return view('error.error_404');
+    return abort(404);
 });
 
 Auth::routes();
@@ -43,7 +44,7 @@ Route::get('/books/{slug}', [HomeController::class, "books"])->name("books");
 Route::get('/banner_detail/{id}', [HomeController::class, "banner_detail"])->name("banner_detail");
 
 // Admin Auth Routes
-Route::middleware("auth")->prefix("admin")->group(function () {
+Route::middleware(["auth", 'can:admin-access'])->prefix("admin")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
     Route::resource("category", CategoryController::class)->except(['create', 'show']);
     Route::resource("books", BookController::class);
