@@ -33,26 +33,43 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="mb-1">Book Title</label>
-                    <input type="text" name="title" class="form-control" value="{{ $book->title }}"
-                        placeholder="Enter Book Title...">
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                        value="{{ $book->title }}" placeholder="Enter Book Title...">
+                    @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Book Description</label>
-                    <textarea class=" form-control" rows="6" name="description">{{ $book->description }}</textarea>
+                    <textarea class=" form-control @error('description') is-invalid @enderror" rows="6" name="description">{{ $book->description }}</textarea>
+                    @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Author Name</label>
-                    <input type="text" name="author" class="form-control" value="{{ $book->author }}"
-                        placeholder="Enter Author Name...">
+                    <input type="text" name="author" class="form-control @error('author') is-invalid @enderror"
+                        value="{{ $book->author }}" placeholder="Enter Author Name...">
+
+                    @error('author')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Choose Book Category</label>
                     <select class="form-select" aria-label="Default select example" name="category">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ $book->category_id == $category->id ? 'selected' : '' }}>
+                            <option value="{{ $category->id }}"
+                                {{ $book->category_id == $category->id ? 'selected' : '' }}>
                                 {{ $category->title }}
                             </option>
                         @endforeach
@@ -61,8 +78,13 @@
 
                 <div class="mb-3">
                     <label for="" class="mb-1">Book Copies</label>
-                    <input type="number" name="qty" class="form-control" value="{{ $book->qty }}"
-                        placeholder="Enter Book Copies...">
+                    <input type="number" name="qty" class="form-control @error('qty') is-invalid @enderror"
+                        value="{{ $book->qty }}" placeholder="Enter Book Copies...">
+                    @error('qty')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <button class="btn lg_btn btn-primary float-end">Update Book</button>

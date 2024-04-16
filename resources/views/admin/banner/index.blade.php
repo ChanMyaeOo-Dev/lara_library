@@ -28,7 +28,7 @@
                                 <img src="{{ asset('storage/' . $banner->image) }}"
                                     class="me-2 rounded border border-1 object-fit-cover" style="width: 105px;height:45px;">
                             </td>
-                            <td>{{ Str::words($banner->description, 5, '...') }}</td>
+                            <td>{{ Str::words($banner->description, 10, '...') }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="{{ route('banners.edit', $banner->id) }}"
