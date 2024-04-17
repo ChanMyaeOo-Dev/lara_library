@@ -41,23 +41,31 @@
                 </div>
 
                 {{-- Recommand --}}
-                <p class="mb-3 fs-5 text-black fw-semibold d-none d-md-block">
-                    Editor Choice
-                </p>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <p class="mb-0 fs-5 text-black fw-semibold">
+                        Editor Choices
+                    </p>
+                    <a href="{{ route('books', 'editor-choices') }}" class=" nav-link ">
+                        See All
+                        <i class="bi bi-chevron-right ms-1 small"></i>
+                    </a>
+                </div>
+
                 <div class="mb-4 recommand_box d-flex align-baseline">
                     <div class="recommand_container w-100 d-flex align-items-end justify-content-between gap-3">
-                        @foreach ($editor_choices as $book)
-                            <a href="{{ route('book', $book->slug) }}" class="text-decoration-none text-dark w-100">
+                        @foreach ($editor_choices as $editor_choice)
+                            <a href="{{ route('book', $editor_choice->book->slug) }}"
+                                class="text-decoration-none text-dark w-100">
                                 <div class="recommand_card w-100 mb-2 rounded">
                                     <div class="d-flex">
-                                        <img src="{{ asset('storage/' . $book->book_image) }}"
+                                        <img src="{{ asset('storage/' . $editor_choice->book->book_image) }}"
                                             class="recommand_image rounded shadow">
                                         <div class="recommand_text_box">
-                                            <p class="mb-0 text-black fs-5" style="line-height: 1.2">
-                                                {{ Str::words($book->title, 3, '...') }}
+                                            <p class="mb-2 text-black fs-5" style="line-height: 1.2">
+                                                {{ Str::words($editor_choice->book->title, 3, '...') }}
                                             </p>
                                             <span class="badge rounded-pill text-bg-dark">
-                                                {{ Str::words($book->category->title, 2, '...') }}
+                                                {{ Str::words($editor_choice->book->category->title, 2, '...') }}
                                             </span>
                                         </div>
                                     </div>

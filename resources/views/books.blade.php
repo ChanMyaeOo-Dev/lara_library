@@ -27,7 +27,23 @@
                 </div>
             </div>
             <div class="col-12 col-md-3 px-0 ps-md-3">
-                <div class="card bg-white p-2 mb-3 overflow-auto h-100">
+
+                <div class="card bg-white p-2 mb-3">
+                    <div class="card-body">
+                        <form id="editorForm" method="GET">
+                            <div class="form-check">
+                                <input onchange="submitOrChangeAction()" class="form-check-input" type="checkbox"
+                                    value="1" id="choices-check"
+                                    {{ request()->slug === 'editor-choices' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="choices-check">
+                                    Editor Choices
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card bg-white p-2 mb-3 overflow-auto">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">
                             <a href="{{ route('books', 'all') }}" class="text-decoration-none">
@@ -59,4 +75,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function submitOrChangeAction() {
+            var form = document.getElementById('editorForm');
+            var checkbox = document.getElementById('choices-check');
+
+            if (checkbox.checked) {
+                form.action = "{{ route('books', 'editor-choices') }}";
+                form.submit();
+            } else {
+                form.action = "{{ route('books', 'all') }}";
+                form.submit();
+            }
+        }
+    </script>
 @endsection

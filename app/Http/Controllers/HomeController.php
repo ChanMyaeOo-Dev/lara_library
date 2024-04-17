@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\EditorChoice;
 use App\Models\ProjectBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class HomeController extends Controller
         $banners = Banner::latest()->get();
         $project_books = ProjectBook::orderBy("id", "asc")->take(6)->get();
         $latest_arrival = Book::orderBy("id", "asc")->take(6)->get();
-        $editor_choices = Book::orderBy("id", "asc")->take(3)->get();
+        $editor_choices = EditorChoice::orderBy("id", "desc")->take(3)->get();
         $categories = Category::latest()->take(6)->get();
         $popular_books = Book::select('id', 'slug', 'title', 'book_image')
             ->withCount('transactions')
@@ -82,6 +83,9 @@ class HomeController extends Controller
         $books = "";
         if ($slug == "all") {
             $books = Book::paginate(18);
+        } else if ($slug == "editor-choices") {
+            $choices = EditorChoice::pluck("book_id");
+            $books = Book::whereIn('id', $choices)->paginate(18);
         } else {
             $category = Category::where("slug", $slug)->firstOrFail();
             $books = Book::where("category_id", $category->id)->paginate(18);

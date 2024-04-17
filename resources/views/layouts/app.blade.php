@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div id="app" class="bg-light">
+    <div id="app" class="bg-light min-vh-100">
         @include('layouts.user_nav_bar')
         @yield('content')
     </div>

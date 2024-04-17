@@ -1,13 +1,25 @@
 @extends('layouts.dashboard_layout')
 
 @section('content')
-    <div class="my-4 d-flex align-items-center">
-        <a href="{{ route('books.index') }}" class="btn btn-sm btn-dark me-2">
-            <i class="bi bi-arrow-left"></i>
-        </a>
-        <h4 class="text-uppercase mb-0">
-            Book Details
-        </h4>
+    <div class="my-4 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <a href="{{ route('books.index') }}" class="btn btn-sm btn-dark me-2">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <h4 class="text-uppercase mb-0">
+                Book Details
+            </h4>
+        </div>
+
+        <form action="{{ route('editor_choices.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="book_id" value="{{ $book->id }}">
+            <button class="btn btn-outline-primary lg_btn">
+                <i class="bi bi-star me-1"></i>
+                Add To Editor Choice
+            </button>
+        </form>
+
     </div>
 
     <div class="d-flex gap-3 mb-3">
