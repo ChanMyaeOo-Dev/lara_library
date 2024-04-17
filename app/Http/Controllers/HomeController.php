@@ -23,15 +23,16 @@ class HomeController extends Controller
     public function index()
     {
         $banners = Banner::latest()->get();
-        $project_books = ProjectBook::latest()->take(6)->get();
-        $latest_arrival = Book::latest()->take(6)->get();
+        $project_books = ProjectBook::orderBy("id", "asc")->take(6)->get();
+        $latest_arrival = Book::orderBy("id", "asc")->take(6)->get();
+        $editor_choices = Book::orderBy("id", "asc")->take(3)->get();
         $categories = Category::latest()->take(6)->get();
         $popular_books = Book::select('id', 'slug', 'title', 'book_image')
             ->withCount('transactions')
             ->orderByDesc('transactions_count')
             ->limit(5)
             ->get();
-        return view('home', compact("banners", "project_books", "latest_arrival", "categories", "popular_books"));
+        return view('home', compact("banners", "editor_choices", "project_books", "latest_arrival", "categories", "popular_books"));
     }
 
     public function banner_detail($id)
@@ -91,7 +92,7 @@ class HomeController extends Controller
 
     public function project_books()
     {
-        $books = ProjectBook::paginate(12);
+        $books = ProjectBook::paginate(9);
         return view('project_books', compact("books"));
     }
 }

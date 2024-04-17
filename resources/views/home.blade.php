@@ -19,8 +19,10 @@
                             @foreach ($banners as $key => $slider)
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <a href="{{ route('banner_detail', $slider->id) }}" class="">
-                                        <img src="{{ asset('Storage/' . $slider->image) }}" class="d-block w-100 rounded"
-                                            alt="{{ $slider->description }}">
+                                        <img src="https://img.freepik.com/free-photo/girl-sitting-table-park-writing_23-2147657062.jpg?t=st=1713289909~exp=1713293509~hmac=f2543cf60c11b2fff100863ca09f29ba722142357e66724bf6bdeba73660a9b5&w=2000"
+                                            class="object-fit-cover w-100 h-100 rounded" alt="{{ $slider->description }}">
+                                        {{-- <img src="{{ asset('Storage/' . $slider->image) }}" class="d-block w-100 rounded"
+                                            alt="{{ $slider->description }}"> --}}
                                     </a>
                                 </div>
                             @endforeach
@@ -38,6 +40,33 @@
                     </div>
                 </div>
 
+                {{-- Recommand --}}
+                <p class="mb-3 fs-5 text-black fw-semibold d-none d-md-block">
+                    Editor Choice
+                </p>
+                <div class="mb-4 recommand_box d-flex align-baseline">
+                    <div class="recommand_container w-100 d-flex align-items-end justify-content-between gap-3">
+                        @foreach ($editor_choices as $book)
+                            <a href="{{ route('book', $book->slug) }}" class="text-decoration-none text-dark w-100">
+                                <div class="recommand_card w-100 mb-2 rounded">
+                                    <div class="d-flex">
+                                        <img src="{{ asset('storage/' . $book->book_image) }}"
+                                            class="recommand_image rounded shadow">
+                                        <div class="recommand_text_box">
+                                            <p class="mb-0 text-black fs-5" style="line-height: 1.2">
+                                                {{ Str::words($book->title, 3, '...') }}
+                                            </p>
+                                            <span class="badge rounded-pill text-bg-dark">
+                                                {{ Str::words($book->category->title, 2, '...') }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 {{-- Latest Arrival --}}
                 <div class="mb-4">
                     <p class="mb-3 fs-5 text-black fw-semibold">
@@ -45,8 +74,8 @@
                     </p>
                     <div class="book_grid_container">
                         @foreach ($latest_arrival as $book)
-                            <a href="{{ route('book', $book->slug) }}">
-                                <div class="card-container border border-1">
+                            <a href="{{ route('book', $book->slug) }}" class="text-decoration-none text-dark">
+                                <div class="card-container border border-2 mb-2">
                                     <div class="animate_card">
                                         <div class="img-content">
                                             <img src="{{ asset('storage/' . $book->book_image) }}" class="">
@@ -58,12 +87,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mb-0 text-nowrap">{{ Str::substr($book->title, 0, 14) . '...' }}</p>
                             </a>
                         @endforeach
                     </div>
                 </div>
+
                 {{-- Project Books --}}
-                <div>
+                <div class="mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <p class="mb-0 fs-5 text-black fw-semibold">
                             Project Books
@@ -75,8 +106,8 @@
                     </div>
                     <div class="book_grid_container">
                         @foreach ($project_books as $book)
-                            <a href="{{ route('project-book', $book->slug) }}">
-                                <div class="card-container border border-1">
+                            <a href="{{ route('project-book', $book->slug) }}" class="text-decoration-none text-dark">
+                                <div class="card-container border border-2 mb-2">
                                     <div class="animate_card">
                                         <div class="img-content">
                                             <img src="{{ asset('storage/' . $book->cover_image) }}" class="">
@@ -88,12 +119,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mb-0 text-nowrap">{{ Str::substr($book->title, 0, 14) . '...' }}</p>
                             </a>
                         @endforeach
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-3 px-0 ps-md-3 mt-3 mt-md-0">
+            <div class="col-12 col-md-3 px-0 ps-md-4 mt-3 mt-md-0">
                 @auth
                     <div class="card bg-white p-2 mb-3">
                         <div class=" card-body">
@@ -155,6 +187,11 @@
                         </div>
                     </div>
                 @endauth
+
+                <p class="mb-3 fs-5 text-black fw-semibold">
+                    Filter
+                </p>
+
                 <div class="card bg-white p-2 mb-3">
                     <div class="card-body">
                         <div class="mb-1 px-1 profile_card_item">

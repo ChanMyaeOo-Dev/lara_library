@@ -63,7 +63,7 @@
         height: 200px;
     }
     #profile {
-        margin-top: -100px;
+        margin-top: -150px;
     }
 }
 
@@ -140,6 +140,14 @@ select,
     grid-row-gap: 10px;
 }
 
+.project_book_grid_container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
 .book_image {
     height: 140px;
 }
@@ -186,7 +194,7 @@ select,
 .card-container {
     height: 240px !important;
     position: relative;
-    border-radius: 8.5px;
+    border-radius: 6.5px;
 }
 
 .card-container::before {
@@ -202,7 +210,7 @@ select,
 .book-container {
     height: 240px !important;
     position: relative;
-    border-radius: 8.5px;
+    border-radius: 6.5px;
 }
 
 .book-container::before {
@@ -253,7 +261,7 @@ select,
     color: #ffffff;
     padding: 18px;
     line-height: 1.5;
-    border-radius: 5px;
+    border-radius: 6.5px;
     opacity: 0;
     pointer-events: none;
     transform: translateY(50px);
@@ -274,6 +282,10 @@ select,
     width: 100%;
 }
 // Card Animation end
+
+.recommand_box {
+    display: none !important;
+}
 
 @media (min-width: 768px) {
     #main_content,
@@ -296,9 +308,27 @@ select,
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: repeat(1, 1fr);
-        grid-column-gap: 14px;
-        grid-row-gap: 14px;
+        grid-column-gap: 24px;
+        grid-row-gap: 34px;
     }
+
+    .project_book_grid_container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 64px;
+        margin-top: 60px;
+    }
+
+    .project_book_grid_container .recommand_image {
+        transition: transform 0.3s ease; /* Add a transition effect */
+    }
+
+    .project_book_grid_container .recommand_card:hover .recommand_image {
+        transform: translateY(-10px); /* Apply translation effect on hover */
+    }
+
     .card-container {
         height: 215px !important;
     }
@@ -309,5 +339,44 @@ select,
 
     .animated {
         width: 30%;
+    }
+
+    .recommand_box {
+        display: flex !important;
+        height: 200px;
+    }
+
+    .recommand_card {
+        height: 150px;
+        position: relative;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10.2px);
+        -webkit-backdrop-filter: blur(10.2px);
+        border: 1px solid rgba(255, 255, 255, 1);
+    }
+
+    .recommand_image {
+        transition: transform 0.3s ease; /* Add a transition effect */
+    }
+
+    .recommand_card:hover .recommand_image {
+        transform: translateY(-10px); /* Apply translation effect on hover */
+    }
+
+    .recommand_image {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        height: 180px;
+        width: 130px !important;
+        object-fit: cover !important;
+    }
+    .recommand_text_box {
+        margin-left: 160px;
+        margin-right: 16px;
+        margin-top: 16px;
     }
 }

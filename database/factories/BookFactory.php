@@ -29,6 +29,10 @@ class BookFactory extends Factory
             "demo_4.jpg",
             "demo_5.jpg",
             "demo_6.jpg",
+            "demo_7.jpg",
+            "demo_8.jpg",
+            "demo_9.jpg",
+            "demo_10.jpg",
         ];
         return [
             'title' => $title,

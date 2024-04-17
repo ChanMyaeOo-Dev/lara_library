@@ -17,7 +17,7 @@
                                 <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
                                     class="rounded object-fit-cover">
                                 <img id="profile" src="{{ asset('storage/' . $book->book_image) }}"
-                                    class="rounded-4 object-fit-cover mx-auto" style="width:200px;height:200px;">
+                                    class="rounded object-fit-cover mx-auto shadow" style="width:160px;height:220px;">
                             </div>
                             <p class="fs-4 mb-4 fw-bold text-center">{{ $book->title }}</p>
 

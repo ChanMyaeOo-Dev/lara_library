@@ -6,19 +6,19 @@
             <div class="col-12 col-md-9 px-0">
                 <div class="book_grid_container">
                     @foreach ($books as $book)
-                        <a href="{{ route('book', $book->slug) }}">
-                            <div class="card-container border border-1" style="height: 300px;">
+                        <a href="{{ route('book', $book->slug) }}" class="text-decoration-none text-dark">
+                            <div class="card-container border border-2 mb-2" style="height: 300px;">
                                 <div class="animate_card">
                                     <div class="img-content">
                                         <img src="{{ asset('storage/' . $book->book_image) }}" class="">
                                     </div>
                                     <div class="content">
                                         <p class="fw-bold fs-5 mb-2">{{ Str::words($book->title, 3, '...') }}</p>
-                                        <span
-                                            class="badge rounded-pill text-bg-primary">{{ Str::limit($book->author, 10, '...') }}</span>
+                                        <span class="badge rounded-pill text-bg-primary">See More...</span>
                                     </div>
                                 </div>
                             </div>
+                            <p class="mb-0 text-nowrap">{{ Str::substr($book->title, 0, 14) . '...' }}</p>
                         </a>
                     @endforeach
                 </div>

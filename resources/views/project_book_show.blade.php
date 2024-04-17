@@ -14,10 +14,10 @@
                     <div class="card col-12 col-md-8 rounded-sm bg-white p-2">
                         <div class="card-body">
                             <div id="profile_cover" class="mb-3 d-flex flex-column align-items-center">
-                                <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
+                                <img id="cover" src="{{ asset('storage/show_back.jpg') }}"
                                     class="rounded object-fit-cover">
                                 <img id="profile" src="{{ asset('storage/' . $book->cover_image) }}"
-                                    class="rounded-4 object-fit-cover mx-auto" style="width:200px;height:200px;">
+                                    class="rounded shadow object-fit-cover mx-auto" style="width:160px;height:220px;">
                             </div>
                             <p class="fs-4 mb-4 fw-bold text-center">{{ $book->title }}</p>
 
