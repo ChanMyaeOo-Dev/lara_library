@@ -16,9 +16,8 @@ class BannerSeeder extends Seeder
     public function run()
     {
         $banner_images = [
-            "demo_4.jpg",
-            "demo_5.jpg",
-            "demo_6.jpg",
+            "banner_demo_1.png",
+            "banner_demo_2.png",
         ];
         $description = fake()->realTextBetween(400, 500);
         foreach ($banner_images as $image) {

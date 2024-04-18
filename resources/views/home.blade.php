@@ -19,10 +19,8 @@
                             @foreach ($banners as $key => $slider)
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <a href="{{ route('banner_detail', $slider->id) }}" class="">
-                                        <img src="https://img.freepik.com/free-photo/girl-sitting-table-park-writing_23-2147657062.jpg?t=st=1713289909~exp=1713293509~hmac=f2543cf60c11b2fff100863ca09f29ba722142357e66724bf6bdeba73660a9b5&w=2000"
-                                            class="object-fit-cover w-100 h-100 rounded" alt="{{ $slider->description }}">
-                                        {{-- <img src="{{ asset('Storage/' . $slider->image) }}" class="d-block w-100 rounded"
-                                            alt="{{ $slider->description }}"> --}}
+                                        <img src="{{ asset('Storage/' . $slider->image) }}" class="d-block w-100 rounded"
+                                            alt="{{ $slider->description }}">
                                     </a>
                                 </div>
                             @endforeach

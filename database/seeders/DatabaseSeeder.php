@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\EditorChoice;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -45,5 +46,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BookSeeder::class);
         $this->call(ProjectBookSeeder::class);
         $this->call(BannerSeeder::class);
+
+        EditorChoice::factory(5)->create();
     }
 }

@@ -37,15 +37,15 @@
 }
 
 .navbar-toggler {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .navbar-toggler:focus {
-    border: 1px solid #21212170 !important;
+    // border: 1px solid #21212170 !important;
     box-shadow: none !important;
 }
 
@@ -121,7 +121,7 @@ select,
 // Client Styles
 
 .nav_logo {
-    width: 160px;
+    width: 120px;
 }
 
 #app_layout {
@@ -298,11 +298,11 @@ select,
     }
 
     .nav_logo {
-        width: 200px;
+        width: 140px;
     }
 
     .carousel-item {
-        height: 300px;
+        height: 360px;
     }
     .book_grid_container {
         display: grid;

@@ -74,6 +74,15 @@
         </div>
     </a>
 
+    {{-- Feedbacks --}}
+    <a href="{{ route('feedbacks.index') }}" class="text-decoration-none">
+        <div
+            class="sidebar_item {{ request()->routeIs('feedbacks*') ? 'sidebar_item_active' : '' }} d-flex align-items-center p-2 mx-3 mb-2 rounded">
+            <i class="bi bi-messenger me-2"></i>
+            <p class="mb-0 text-uppercase">Feedbacks</p>
+        </div>
+    </a>
+
     {{-- Setting --}}
     <a href="{{ route('settings.index') }}" class="text-decoration-none">
         <div

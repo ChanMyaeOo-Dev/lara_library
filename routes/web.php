@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditorChoiceController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectBookController;
 use App\Http\Controllers\SettingController;
@@ -44,6 +45,9 @@ Route::get('/project-book/{slug}', [HomeController::class, "projectBookShow"])->
 Route::get('/project_books', [HomeController::class, "project_books"])->name("project-books");
 Route::get('/books/{slug}', [HomeController::class, "books"])->name("books");
 Route::get('/banner_detail/{id}', [HomeController::class, "banner_detail"])->name("banner_detail");
+Route::get('/contact', [HomeController::class, "contact"])->name("contact");
+Route::get('/faqs', [HomeController::class, "faqs"])->name("faqs");
+
 
 // Admin Auth Routes
 Route::middleware(["auth", 'can:admin-access'])->prefix("admin")->group(function () {
@@ -56,6 +60,7 @@ Route::middleware(["auth", 'can:admin-access'])->prefix("admin")->group(function
     Route::resource("settings", SettingController::class);
     Route::resource("banners", BannerController::class);
     Route::resource("editor_choices", EditorChoiceController::class);
+    Route::resource("feedbacks", FeedbackController::class);
     Route::resource("carts", CartController::class)->except(['create', 'show', 'edit', 'update']);
 });
 
@@ -80,5 +85,7 @@ Route::middleware("auth")->group(
         // User
         Route::get("/change-password", [ChangePasswordController::class, "index"])->name("change-password");
         Route::put("/change-password", [ChangePasswordController::class, "update"])->name("change-password");
+
+        Route::post("/sendFeedback", [HomeController::class, "sendFeedback"])->name('sendFeedback');
     }
 );

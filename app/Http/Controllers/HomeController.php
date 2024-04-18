@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\EditorChoice;
+use App\Models\Feedback;
 use App\Models\ProjectBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,5 +99,27 @@ class HomeController extends Controller
     {
         $books = ProjectBook::paginate(9);
         return view('project_books', compact("books"));
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    public function faqs()
+    {
+        return view('faqs');
+    }
+
+    public function sendFeedback(Request $request)
+    {
+        $request->validate([
+            "message" => "required"
+        ]);
+        $feedback = new Feedback();
+        $feedback->user_id = Auth::id();
+        $feedback->message = $request->message;
+        $feedback->save();
+        return redirect()->back()->with("message", "Successfully sent feedback.");
     }
 }

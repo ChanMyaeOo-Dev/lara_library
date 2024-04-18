@@ -17,7 +17,7 @@ class EditorChoiceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "book_id" => rand(1, 5)
         ];
     }
 }

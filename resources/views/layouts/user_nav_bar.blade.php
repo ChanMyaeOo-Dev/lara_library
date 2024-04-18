@@ -13,15 +13,14 @@
         </div>
 
         <div class="d-flex align-items-center">
-            <button type="button"
-                class="navbar-toggler d-block d-md-none me-2 d-flex align-items-center justify-content-center"
-                data-bs-toggle="modal" data-bs-target="#searchModal">
-                <i class="bi bi-search text-dark"></i>
+            <button type="button" class="btn btn-outline-light d-block d-md-none me-2" data-bs-toggle="modal"
+                data-bs-target="#searchModal">
+                <i class="bi bi-search"></i>
             </button>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="{{ __('Toggle navigation') }}">
-                <i class="bi bi-list text-dark"></i>
+            <button class="navbar-toggler border border-2 border-white text-white" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <i class="bi bi-list"></i>
             </button>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,14 +40,15 @@
                     </a>
                 </li>
 
-                <li class="nav-item pe-md-3">
-                    <a class="nav-link" href="{{ route('login') }}">
+                <li class="nav-item pe-md-3 {{ request()->routeIs('contact*') ? 'nav_active' : '' }}">
+                    <a class="nav-link" href="{{ route('contact') }}">
                         Contact
                     </a>
                 </li>
 
-                <li class="nav-item pe-md-3 pb-2 pb-md-0 last_nav_item">
-                    <a class="nav-link" href="{{ route('login') }}">
+                <li
+                    class="nav-item pe-md-3 pb-2 pb-md-0 last_nav_item {{ request()->routeIs('faqs*') ? 'nav_active' : '' }}">
+                    <a class="nav-link" href="{{ route('faqs') }}">
                         FAQs
                     </a>
                 </li>

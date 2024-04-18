@@ -5,7 +5,7 @@
         <div class="row min-vh-100 w-100 mx-0" id="app_layout">
             <div class="col-12 col-md-9 px-0">
                 <img src="{{ asset('Storage/' . $banner->image) }}" class="w-100 object-fit-cover mb-3 rounded shadow"
-                    style="height: 300px;">
+                    style="height: 380px;">
 
                 <p class="mb-0 bg-light border border-1 rounded p-4 shadow-sm">
                     {{ $banner->description }}
