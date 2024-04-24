@@ -14,7 +14,7 @@
                     <div class="card col-12 col-md-6 rounded-sm bg-white p-2">
                         <div class="card-body">
                             <div id="profile_cover" class="mb-3 d-flex flex-column align-items-center">
-                                <img id="cover" src="{{ asset('storage/profile_background.jpg') }}"
+                                <img id="cover" src="{{ asset('storage/show_back.jpg') }}"
                                     class="rounded object-fit-cover">
                                 <img id="profile" src="{{ asset('storage/' . $book->book_image) }}"
                                     class="rounded object-fit-cover mx-auto shadow" style="width:160px;height:220px;">
